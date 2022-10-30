@@ -2,6 +2,7 @@ package http
 
 import (
 	"bytes"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -9,6 +10,7 @@ import (
 )
 
 func HttpPost(payload []byte, url string, token string) []byte {
+	fmt.Println(string(payload))
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(payload))
 	if err != nil {
 		log.Fatal(err)

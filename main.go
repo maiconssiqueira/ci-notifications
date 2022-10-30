@@ -2,10 +2,35 @@ package main
 
 import (
 	"fmt"
+	"os"
+
+	"github.com/maiconssiqueira/ci-notifications/pkg/github/statuses"
 )
 
 func main() {
-	res := githubChecks("FRST-Falconi", "calculadora-cpf-test", "54fca711aad922a1b286ca2415ebb0413cee86df", "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", "ci/pipelines", "success", "completed unit tests", "https://www.google.com")
+
+	organization := os.Getenv("ORGANIZATION")
+	repository := os.Getenv("REPOSITORY")
+	sha := os.Getenv("SHA")
+	bearer := os.Getenv("BEARER")
+	context := os.Getenv("CONTEXT")
+	state := os.Getenv("STATE")
+	description := os.Getenv("DESCRIPTION")
+	targetUrl := os.Getenv("TARGETURL")
+
+	Github := statuses.Github{
+		Organization: organization,
+		Repository:   repository,
+		Sha:          sha,
+		Bearer:       bearer,
+		Statuses: statuses.Status{
+			Context:     context,
+			State:       state,
+			Description: description,
+			TargetUrl:   targetUrl,
+		},
+	}
+	res := statuses.GithubChecks(Github)
 
 	fmt.Println(res)
 }

@@ -3,7 +3,7 @@ package statuses
 import (
 	"encoding/json"
 
-	"github.com/maiconssiqueira/ci-notifications/http"
+	"github.com/maiconssiqueira/ci-notifications/pkg/http"
 )
 
 type Status struct {
@@ -21,8 +21,9 @@ type Github struct {
 	Statuses     Status `json:"status"`
 }
 
-func GithubChecks(github *Github) string {
+func GithubChecks(github Github) string {
 	payload, _ := json.Marshal(github.Statuses)
+
 	url := ("https://api.github.com/repos/" + github.Organization + "/" + github.Repository + "/statuses/" + github.Sha)
 	res := http.HttpPost(payload, url, github.Bearer)
 
