@@ -4,22 +4,23 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"strconv"
 
 	"github.com/maiconssiqueira/ci-notifications/http"
 )
 
-func (g *Github) commentInit(prNumber string, body string) {
+func (g *Github) commentInit(prNumber int, body string) {
 	g.Comments.PrNumber = prNumber
 	g.Comments.Body = body
 }
 
-func Comment(prNumber string, body string) (string, error) {
+func Comment(prNumber int, body string) (string, error) {
 	github := new(Github)
 	github.commentInit(prNumber, body)
 	payload, _ := json.Marshal(github.Comments)
 
 	fmt.Println(string(payload))
-	url := ("https://api.github.com/repos/" + organization + "/" + repository + "/issues/" + prNumber + "/comments")
+	url := ("https://api.github.com/repos/" + organization + "/" + repository + "/issues/" + strconv.Itoa(prNumber) + "/comments")
 	res := http.HttpPost(payload, url, "", bearer)
 
 	resPretty := &bytes.Buffer{}

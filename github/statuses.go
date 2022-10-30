@@ -8,11 +8,18 @@ import (
 	"github.com/maiconssiqueira/ci-notifications/http"
 )
 
-var validState = map[string]bool{
+var availableState = map[string]bool{
 	"pending": true,
 	"error":   true,
 	"failure": true,
 	"success": true,
+}
+
+var availableContext = map[string]bool{
+	"ci/build":       true,
+	"ci/deploy":      true,
+	"ci/unittests":   true,
+	"ci/codequality": true,
 }
 
 func (g *Github) statusesInit(context string, state string, description string, targetUrl string) {
@@ -23,8 +30,11 @@ func (g *Github) statusesInit(context string, state string, description string, 
 }
 
 func Checks(context string, state string, description string, targetUrl string) (string, error) {
-	if !validState[state] {
-		err := fmt.Errorf("this state reported [%v] is invalid, it can be one of the following: error, failure, pending or success", state)
+	if !availableState[state] || !availableContext[context] {
+		err := fmt.Errorf(`
+		This state or context reported [%v, %v] is invalid, it can be one of the following: 
+		Available states:  [error, failure, pending, success] 
+		Available contexts: [ci/build, ci/deploy, ci/unittests, ci/codequality]`, state, context)
 		return "", err
 	}
 	github := new(Github)

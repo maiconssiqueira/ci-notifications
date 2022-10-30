@@ -3,6 +3,8 @@ package github
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
+	"regexp"
 
 	"github.com/maiconssiqueira/ci-notifications/http"
 )
@@ -18,6 +20,13 @@ func (g *Github) releasesInit(tagName string, targetCommitish string, name strin
 }
 
 func Releases(tagName string, targetCommitish string, name string, body string, draft bool, prerelease bool, generateReleaseNotes bool) (string, error) {
+	tagValidate, _ := regexp.MatchString("^(v[0-9]+)(\\.[0-9]+)(\\.[0-9])(|\\-rc\\.[0-9])(|\\-rc\\.[0-9])$", tagName)
+	if !tagValidate {
+		err := fmt.Errorf(`
+		This organization uses the semantic version pattern. You sent %v and the allowed is [v0.0.0, v0.0.0-rc0, v0.0.0-beta0]
+		`, tagName)
+		return "", err
+	}
 	github := new(Github)
 	github.releasesInit(tagName, targetCommitish, name, body, draft, prerelease, generateReleaseNotes)
 

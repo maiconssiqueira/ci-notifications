@@ -19,12 +19,12 @@ var commentsCmd = &cobra.Command{
 	},
 }
 
-var pullrequest string
+var pullrequest int
 var message string
 
 func init() {
 	rootCmd.AddCommand(commentsCmd)
-	commentsCmd.Flags().StringVarP(&pullrequest, "pullrequest", "P", "", `Pull Request number`)
+	commentsCmd.Flags().IntVarP(&pullrequest, "pullrequest", "P", 0, `Pull Request number`)
 	commentsCmd.Flags().StringVarP(&message, "message", "m", "", `Message to comment into a Pull Request`)
 	commentsCmd.MarkFlagRequired("pullrequest")
 	commentsCmd.MarkFlagRequired("message")

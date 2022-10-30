@@ -27,7 +27,7 @@ type releases struct {
 }
 
 type comments struct {
-	PrNumber string `json:"prNumber"`
+	PrNumber int    `json:"prNumber"`
 	Body     string `json:"body"`
 }
 type Github struct {
