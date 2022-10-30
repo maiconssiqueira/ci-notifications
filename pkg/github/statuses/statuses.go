@@ -2,6 +2,7 @@ package statuses
 
 import (
 	"encoding/json"
+	"os"
 
 	"github.com/maiconssiqueira/ci-notifications/pkg/http"
 )
@@ -31,7 +32,25 @@ type Github struct {
 	Statuses     Status `json:"status"`
 }
 
-func GithubChecks(github Github) string {
+func GithubChecks(context string, state string, description string, targetUrl string) string {
+
+	organization := os.Getenv("ORGANIZATION")
+	repository := os.Getenv("REPOSITORY")
+	sha := os.Getenv("SHA")
+	bearer := os.Getenv("BEARER")
+
+	github := Github{
+		Organization: organization,
+		Repository:   repository,
+		Sha:          sha,
+		Bearer:       bearer,
+		Statuses: Status{
+			Context:     context,
+			State:       state,
+			Description: description,
+			TargetUrl:   targetUrl,
+		},
+	}
 	payload, _ := json.Marshal(github.Statuses)
 
 	url := ("https://api.github.com/repos/" + github.Organization + "/" + github.Repository + "/statuses/" + github.Sha)
