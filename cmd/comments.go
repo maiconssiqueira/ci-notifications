@@ -7,11 +7,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// commentsCmd represents the comments command
 var commentsCmd = &cobra.Command{
 	Use:   "comments",
-	Short: "",
-	Long:  ``,
+	Short: "The  comments supports send comment on pull requests",
 	Run: func(cmd *cobra.Command, args []string) {
 		res, err := github.Comment(pullrequest, message)
 		if err != nil {
