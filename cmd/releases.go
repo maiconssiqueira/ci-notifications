@@ -1,0 +1,47 @@
+package cmd
+
+import (
+	"fmt"
+
+	"github.com/maiconssiqueira/ci-notifications/github"
+	"github.com/spf13/cobra"
+)
+
+var releasesCmd = &cobra.Command{
+	Use:   "releases",
+	Short: "Set a new release to a Github repository",
+	Long:  `Allows you to set a new release tag to a repository on Github`,
+	Run: func(cmd *cobra.Command, args []string) {
+
+		res, err := github.Releases(tagName, targetCommitish, name, body, draft, prerelease, generateReleaseNotes)
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Println(res)
+	},
+}
+
+var tagName string
+var targetCommitish string
+var name string
+var body string
+var draft bool
+var prerelease bool
+var generateReleaseNotes bool
+
+func init() {
+	rootCmd.AddCommand(releasesCmd)
+	releasesCmd.Flags().StringVarP(&tagName, "tagName", "t", "", `The name of the tag. Example: v1.0.2`)
+	releasesCmd.Flags().StringVarP(&targetCommitish, "targetCommitish", "T", "", `Specifies the commitish value that determines where the Git tag is created from. 
+	Can be any branch or commit SHA. Unused if the Git tag already exists. Default: the repository's default branch (usually master)`)
+	releasesCmd.Flags().StringVarP(&name, "name", "n", "", "The name of the release")
+	releasesCmd.Flags().StringVarP(&body, "body", "b", "", "Text describing the contents of the tag. Markdown style")
+	releasesCmd.Flags().BoolVarP(&draft, "draft", "d", false, "True to create a draft (unpublished) release, false to create a published one")
+	releasesCmd.Flags().BoolVarP(&prerelease, "prerelease", "p", false, "True to identify the release as a prerelease. false to identify the release as a full release")
+	releasesCmd.Flags().BoolVarP(&generateReleaseNotes, "generateReleaseNotes", "g", true, `Whether to automatically generate the name and body for this release. 
+	If name is specified, the specified name will be used; otherwise, a name will be automatically generated. 
+	If body is specified, the body will be pre-pended to the automatically generated notes`)
+	releasesCmd.MarkFlagRequired("tagName")
+	releasesCmd.MarkFlagRequired("targetCommitish")
+	releasesCmd.MarkFlagRequired("name")
+}

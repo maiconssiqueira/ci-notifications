@@ -17,6 +17,7 @@ var githubCmd = &cobra.Command{
 }
 
 func init() {
+	githubCmd.AddCommand(releasesCmd)
 	githubCmd.AddCommand(statusesCmd)
 	rootCmd.AddCommand(githubCmd)
 }
