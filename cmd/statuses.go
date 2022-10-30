@@ -12,7 +12,6 @@ var statusesCmd = &cobra.Command{
 	Short: "Send updates to Github Checks",
 	Long:  `Status checks allow you to send data related to tests or routines submitted to the repository via CI/CD pipelines.`,
 	Run: func(cmd *cobra.Command, args []string) {
-
 		res, err := github.Checks(context, state, description, targetUrl)
 		if err != nil {
 			fmt.Println(err)

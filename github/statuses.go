@@ -32,7 +32,7 @@ func Checks(context string, state string, description string, targetUrl string) 
 
 	payload, _ := json.Marshal(github.Statuses)
 	url := ("https://api.github.com/repos/" + organization + "/" + repository + "/statuses/" + sha)
-	res := http.HttpPost(payload, url, bearer)
+	res := http.HttpPost(payload, url, "application/json", bearer)
 
 	resPretty := &bytes.Buffer{}
 	err := json.Indent(resPretty, res, "", "  ")

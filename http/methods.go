@@ -8,13 +8,13 @@ import (
 	"net/http/cookiejar"
 )
 
-func HttpPost(payload []byte, url string, token string) []byte {
+func HttpPost(payload []byte, url string, contentType string, token string) []byte {
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(payload))
 	if err != nil {
 		log.Fatal(err)
 	}
 	req.Header.Add("authorization", "Bearer "+token)
-	req.Header.Add("Content-Type", "application/json")
+	req.Header.Add("Content-Type", contentType)
 
 	defer req.Body.Close()
 

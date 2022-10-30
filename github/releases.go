@@ -23,7 +23,7 @@ func Releases(tagName string, targetCommitish string, name string, body string, 
 
 	payload, _ := json.Marshal(github.Releases)
 	url := ("https://api.github.com/repos/" + organization + "/" + repository + "/releases")
-	res := http.HttpPost(payload, url, bearer)
+	res := http.HttpPost(payload, url, "application/json", bearer)
 
 	resPretty := &bytes.Buffer{}
 	err := json.Indent(resPretty, res, "", "  ")

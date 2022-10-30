@@ -25,6 +25,11 @@ type releases struct {
 	Prerelease           bool   `json:"prerelease"`
 	GenerateReleaseNotes bool   `json:"generate_release_notes"`
 }
+
+type comments struct {
+	PrNumber string `json:"prNumber"`
+	Body     string `json:"body"`
+}
 type Github struct {
 	Organization string   `json:"organization"`
 	Repository   string   `json:"repository"`
@@ -32,4 +37,5 @@ type Github struct {
 	Sha          string   `json:"sha"`
 	Statuses     status   `json:"status"`
 	Releases     releases `json:"releases"`
+	Comments     comments `json:"comments"`
 }
