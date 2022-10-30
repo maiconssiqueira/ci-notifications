@@ -1,21 +1,12 @@
 package statuses
 
 import (
+	"bytes"
 	"encoding/json"
 	"os"
 
 	"github.com/maiconssiqueira/ci-notifications/pkg/http"
 )
-
-type Releases struct {
-	TagName              string `json:"tag_name"`
-	TargetCommitish      string `json:"target_commitish"`
-	Name                 string `json:"name"`
-	Body                 string `json:"body"`
-	Draft                bool   `json:"draft"`
-	Prerelease           bool   `json:"prerelease"`
-	GenerateReleaseNotes bool   `json:"generate_release_notes"`
-}
 
 type Status struct {
 	Context     string `json:"context"`
@@ -34,16 +25,11 @@ type Github struct {
 
 func GithubChecks(context string, state string, description string, targetUrl string) string {
 
-	organization := os.Getenv("ORGANIZATION")
-	repository := os.Getenv("REPOSITORY")
-	sha := os.Getenv("SHA")
-	bearer := os.Getenv("BEARER")
-
 	github := Github{
-		Organization: organization,
-		Repository:   repository,
-		Sha:          sha,
-		Bearer:       bearer,
+		Organization: os.Getenv("ORGANIZATION"),
+		Repository:   os.Getenv("REPOSITORY"),
+		Sha:          os.Getenv("SHA"),
+		Bearer:       os.Getenv("BEARER"),
 		Statuses: Status{
 			Context:     context,
 			State:       state,
@@ -55,6 +41,11 @@ func GithubChecks(context string, state string, description string, targetUrl st
 
 	url := ("https://api.github.com/repos/" + github.Organization + "/" + github.Repository + "/statuses/" + github.Sha)
 	res := http.HttpPost(payload, url, github.Bearer)
+	resPretty := &bytes.Buffer{}
+	err := json.Indent(resPretty, res, "", "  ")
+	if err != nil {
+		panic(err)
+	}
 
-	return string(res)
+	return resPretty.String()
 }
