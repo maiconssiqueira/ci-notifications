@@ -39,7 +39,11 @@ export GHTOKEN="ghp_ahjh82uehfe38uh38h38hf83fh83"
 Using from the command line:
 
 ```bash
-go run main.go github statuses --context ci/deploy --state success --description "This application has been deployed" --targetUrl http://jenkins.mycompany.io
+go run main.go github statuses \
+  --context ci/deploy \
+  --state success \
+  --description "This application has been deployed" \
+  --targetUrl http://jenkins.mycompany.io
 ```
 
 ![alt statuses](img/status.png)
