@@ -1,10 +1,10 @@
 # **Continuous Delivery: Notifications**
 
-##Integrations
+## Integrations
 Continuous Delivery Notifications is intended to make it easier to send notifications to pipeline-integrated resources.
 
-##Available Resourses
-###Github
+## Available Resourses
+### Github
 - Pull Request comments:
   - Sending reports, logs or important information to determine the open pull request.
 
@@ -14,13 +14,13 @@ Continuous Delivery Notifications is intended to make it easier to send notifica
 - Releases:
   - Releases are based on Git tags, which mark a specific point in your repository's history. A tag date may be different than a release date since they can be created at different times.
 
-###Discord
+### Discord
 WIP
 
-###Telegram
+### Telegram
 WIP
 
-###How-to use:
+### How-to use:
 First of all, you need to declare the following variables.
 
 ```bash
@@ -30,7 +30,7 @@ export SHA="54abc98df637c73e8a98c1f2g34"
 export GHTOKEN="ghp_ahjh82uehfe38uh38h38hf83fh83"
 ```
 
-####Status check:
+#### Status check:
 
 **Available states:**  error, failure, pending and success.
 **Available contexts:** ci/build, ci/deploy, ci/unittests and ci/codequality.
@@ -43,4 +43,4 @@ go run main.go github statuses --context ci/deploy --state success --description
 
 ![alt statuses](img/status.png)
 
-####Pull Request comments:
+#### Pull Request comments:
