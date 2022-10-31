@@ -1,4 +1,4 @@
-# **Continuous Delivery: Notifications**
+# *continuous-integration/notifications*
 
 ## Integrations
 Continuous Delivery Notifications is intended to make it easier to send notifications to pipeline-integrated resources.
