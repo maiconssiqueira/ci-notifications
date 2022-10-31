@@ -3,6 +3,7 @@ package github
 import (
 	"bytes"
 	"encoding/json"
+	"log"
 	"strconv"
 
 	"github.com/maiconssiqueira/ci-notifications/http"
@@ -23,7 +24,7 @@ func Comment(prNumber int, body string) (string, error) {
 	resPretty := &bytes.Buffer{}
 	err := json.Indent(resPretty, res, "", "  ")
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	return resPretty.String(), nil

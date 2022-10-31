@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"log"
 	"regexp"
 
 	"github.com/maiconssiqueira/ci-notifications/http"
@@ -37,7 +38,7 @@ func Releases(tagName string, targetCommitish string, name string, body string, 
 	resPretty := &bytes.Buffer{}
 	err := json.Indent(resPretty, res, "", "  ")
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	return resPretty.String(), nil

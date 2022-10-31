@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"log"
 
 	"github.com/maiconssiqueira/ci-notifications/http"
 )
@@ -47,7 +48,7 @@ func Checks(context string, state string, description string, targetUrl string) 
 	resPretty := &bytes.Buffer{}
 	err := json.Indent(resPretty, res, "", "  ")
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	return resPretty.String(), nil

@@ -30,6 +30,7 @@ type comments struct {
 	PrNumber int    `json:"prNumber"`
 	Body     string `json:"body"`
 }
+
 type Github struct {
 	Organization string   `json:"organization"`
 	Repository   string   `json:"repository"`
