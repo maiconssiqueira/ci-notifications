@@ -7,6 +7,7 @@ import (
 	"log"
 
 	"github.com/maiconssiqueira/ci-notifications/http"
+	"github.com/maiconssiqueira/ci-notifications/utils/config"
 )
 
 var availableState = map[string]bool{
@@ -42,8 +43,8 @@ func Checks(context string, state string, description string, targetUrl string) 
 	github.statusesInit(context, state, description, targetUrl)
 
 	payload, _ := json.Marshal(github.Statuses)
-	url := ("https://api.github.com/repos/" + organization + "/" + repository + "/statuses/" + sha)
-	res := http.HttpPost(payload, url, "application/json", bearer)
+	url := ("https://api.github.com/repos/" + config.Organization + "/" + config.Repository + "/statuses/" + config.Sha)
+	res := http.HttpPost(payload, url, "application/json", config.Bearer)
 
 	resPretty := &bytes.Buffer{}
 	err := json.Indent(resPretty, res, "", "  ")

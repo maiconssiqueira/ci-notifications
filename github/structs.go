@@ -1,14 +1,5 @@
 package github
 
-import "os"
-
-var (
-	organization = os.Getenv("ORGANIZATION")
-	repository   = os.Getenv("REPOSITORY")
-	sha          = os.Getenv("SHA")
-	bearer       = os.Getenv("GHTOKEN")
-)
-
 type status struct {
 	Context     string `json:"context"`
 	State       string `json:"state"`

@@ -8,6 +8,7 @@ import (
 	"regexp"
 
 	"github.com/maiconssiqueira/ci-notifications/http"
+	"github.com/maiconssiqueira/ci-notifications/utils/config"
 )
 
 func (g *Github) releasesInit(tagName string, targetCommitish string, name string, body string, draft bool, prerelease bool, generateReleaseNotes bool) {
@@ -32,8 +33,8 @@ func Releases(tagName string, targetCommitish string, name string, body string, 
 	github.releasesInit(tagName, targetCommitish, name, body, draft, prerelease, generateReleaseNotes)
 
 	payload, _ := json.Marshal(github.Releases)
-	url := ("https://api.github.com/repos/" + organization + "/" + repository + "/releases")
-	res := http.HttpPost(payload, url, "application/json", bearer)
+	url := ("https://api.github.com/repos/" + config.Organization + "/" + config.Repository + "/releases")
+	res := http.HttpPost(payload, url, "application/json", config.Bearer)
 
 	resPretty := &bytes.Buffer{}
 	err := json.Indent(resPretty, res, "", "  ")
