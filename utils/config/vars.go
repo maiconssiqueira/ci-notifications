@@ -21,7 +21,7 @@ func VarExists(variables []string) error {
 			withError = append(withError, variable)
 		}
 	}
-	if len(withError) > 1 {
+	if len(withError) > 0 {
 		error := fmt.Errorf("some variables have not been defined. Check it out: %v", strings.Join(withError, ", "))
 		return error
 	}
