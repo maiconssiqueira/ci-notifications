@@ -6,7 +6,7 @@ var (
 	organization = os.Getenv("ORGANIZATION")
 	repository   = os.Getenv("REPOSITORY")
 	sha          = os.Getenv("SHA")
-	bearer       = os.Getenv("BEARER")
+	bearer       = os.Getenv("GHTOKEN")
 )
 
 type status struct {
