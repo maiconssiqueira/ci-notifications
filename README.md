@@ -33,6 +33,7 @@ export GHTOKEN="ghp_ahjh82uehfe38uh38h38hf83fh83"
 #### Status check:
 
 **Available states:**  error, failure, pending and success.
+
 **Available contexts:** ci/build, ci/deploy, ci/unittests and ci/codequality.
 
 Using from the command line:
