@@ -3,7 +3,6 @@ package github
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"strconv"
 
 	"github.com/maiconssiqueira/ci-notifications/http"
@@ -18,8 +17,6 @@ func Comment(prNumber int, body string) (string, error) {
 	github := new(Github)
 	github.commentInit(prNumber, body)
 	payload, _ := json.Marshal(github.Comments)
-
-	fmt.Println(string(payload))
 	url := ("https://api.github.com/repos/" + organization + "/" + repository + "/issues/" + strconv.Itoa(prNumber) + "/comments")
 	res := http.HttpPost(payload, url, "", bearer)
 
