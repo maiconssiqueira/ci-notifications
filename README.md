@@ -3,7 +3,7 @@
 ## Integrations
 Continuous Delivery Notifications is intended to make it easier to send notifications to pipeline-integrated resources.
 
-## Available Resourses
+## Available Resources
 ### Github
 - Pull Request comments:
   - Sending reports, logs or important information to determine the open pull request.
