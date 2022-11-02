@@ -26,7 +26,6 @@ First of all, you need to declare the following variables.
 ```bash
 export ORGANIZATION="MY-REPO-OWNER"
 export REPOSITORY="TARGET-REPOSITORY"
-export SHA="54abc98df637c73e8a98c1f2g34"
 export GHTOKEN="ghp_ahjh82uehfe38uh38h38hf83fh83"
 ```
 
@@ -40,6 +39,7 @@ Using from the command line:
 
 ```bash
 go run main.go github statuses \
+  --sha 8724893274347484h237432849h3487g343f434
   --context ci/deploy \
   --state success \
   --description "This application has been deployed" \
