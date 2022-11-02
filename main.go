@@ -7,7 +7,7 @@ import (
 	"github.com/maiconssiqueira/ci-notifications/utils/config"
 )
 
-var variableList = []string{
+var requiredVars = []string{
 	"ORGANIZATION",
 	"REPOSITORY",
 	"SHA",
@@ -15,10 +15,11 @@ var variableList = []string{
 }
 
 func main() {
-	err := config.VarExists(variableList)
+	err := config.LoadVariables(requiredVars)
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	cmd.Execute()
 
 }

@@ -23,9 +23,9 @@ type comments struct {
 }
 
 type Github struct {
-	Organization string   `json:"organization"`
-	Repository   string   `json:"repository"`
-	Bearer       string   `json:"bearer"`
+	Organization string `json:"organization"`
+	Repository   string `json:"repository"`
+	Token        string
 	Sha          string   `json:"sha"`
 	Statuses     status   `json:"status"`
 	Releases     releases `json:"releases"`

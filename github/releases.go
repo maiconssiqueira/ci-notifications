@@ -19,6 +19,9 @@ func (g *Github) releasesInit(tagName string, targetCommitish string, name strin
 	g.Releases.Draft = draft
 	g.Releases.Prerelease = prerelease
 	g.Releases.GenerateReleaseNotes = generateReleaseNotes
+	g.Organization = config.Vars["ORGANIZATION"]
+	g.Repository = config.Vars["REPOSITORY"]
+	g.Token = config.Vars["GHTOKEN"]
 }
 
 func Releases(tagName string, targetCommitish string, name string, body string, draft bool, prerelease bool, generateReleaseNotes bool) (string, error) {
@@ -33,8 +36,8 @@ func Releases(tagName string, targetCommitish string, name string, body string, 
 	github.releasesInit(tagName, targetCommitish, name, body, draft, prerelease, generateReleaseNotes)
 
 	payload, _ := json.Marshal(github.Releases)
-	url := ("https://api.github.com/repos/" + config.Organization + "/" + config.Repository + "/releases")
-	res := http.HttpPost(payload, url, "application/json", config.Bearer)
+	url := ("https://api.github.com/repos/" + github.Organization + "/" + github.Repository + "/releases")
+	res := http.HttpPost(payload, url, "application/json", github.Token)
 
 	resPretty := &bytes.Buffer{}
 	err := json.Indent(resPretty, res, "", "  ")

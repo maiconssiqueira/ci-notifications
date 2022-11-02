@@ -14,7 +14,7 @@ func TestVars(t *testing.T) {
 		"MY2",
 	}
 
-	got := config.VarExists(variableList)
+	got := config.LoadVariables(variableList)
 	if got.Error() != want {
 		t.Errorf("Error actual = %v, and Expected = %v.", got, want)
 	}
@@ -28,7 +28,7 @@ func TestValidVars(t *testing.T) {
 		"MY2",
 	}
 
-	got := config.VarExists(variableList)
+	got := config.LoadVariables(variableList)
 	if got != nil {
 		t.Errorf("Error actual = %v, and Expected = %v.", got, nil)
 	}
@@ -36,13 +36,13 @@ func TestValidVars(t *testing.T) {
 
 func TestPArtialVars(t *testing.T) {
 	want := ("some variables have not been defined. Check it out: MY2")
-	os.Setenv("MY1", "")
+	os.Setenv("MY1", "VL1")
 	var variableList = []string{
 		"MY1",
 		"MY2",
 	}
 
-	got := config.VarExists(variableList)
+	got := config.LoadVariables(variableList)
 	if got.Error() != want {
 		t.Errorf("Error actual = %v, and Expected = %v.", got, want)
 	}

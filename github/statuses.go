@@ -29,6 +29,11 @@ func (g *Github) statusesInit(context string, state string, description string, 
 	g.Statuses.State = state
 	g.Statuses.Description = description
 	g.Statuses.TargetUrl = targetUrl
+	g.Organization = config.Vars["ORGANIZATION"]
+	g.Repository = config.Vars["REPOSITORY"]
+	g.Token = config.Vars["GHTOKEN"]
+	g.Sha = config.Vars["SHA"]
+
 }
 
 func Checks(context string, state string, description string, targetUrl string) (string, error) {
@@ -43,8 +48,8 @@ func Checks(context string, state string, description string, targetUrl string) 
 	github.statusesInit(context, state, description, targetUrl)
 
 	payload, _ := json.Marshal(github.Statuses)
-	url := ("https://api.github.com/repos/" + config.Organization + "/" + config.Repository + "/statuses/" + config.Sha)
-	res := http.HttpPost(payload, url, "application/json", config.Bearer)
+	url := ("https://api.github.com/repos/" + github.Organization + "/" + github.Repository + "/statuses/" + github.Sha)
+	res := http.HttpPost(payload, url, "application/json", github.Token)
 
 	resPretty := &bytes.Buffer{}
 	err := json.Indent(resPretty, res, "", "  ")
