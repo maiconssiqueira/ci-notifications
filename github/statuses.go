@@ -24,28 +24,30 @@ var availableContext = map[string]bool{
 	"ci/codequality": true,
 }
 
-func (g *Github) statusesInit(context string, state string, description string, targetUrl string) {
-	g.Statuses.Context = context
-	g.Statuses.State = state
-	g.Statuses.Description = description
-	g.Statuses.TargetUrl = targetUrl
-	g.Organization = config.Vars["ORGANIZATION"]
-	g.Repository = config.Vars["REPOSITORY"]
-	g.Token = config.Vars["GHTOKEN"]
-	g.Sha = config.Vars["SHA"]
-
+func (g *Github) StatusesInit(sha string, context string, state string, description string, targetUrl string) *Github {
+	config := config.New()
+	return &Github{
+		Organization: config.Github.Organization,
+		Repository:   config.Github.Repository,
+		Token:        config.Github.Token,
+		Sha:          sha,
+		Statuses: status{
+			Context:     context,
+			State:       state,
+			Description: description,
+			TargetUrl:   targetUrl,
+		},
+	}
 }
 
-func Checks(context string, state string, description string, targetUrl string) (string, error) {
-	if !availableState[state] || !availableContext[context] {
+func (g *Github) Checks(github *Github) (string, error) {
+	if !availableState[github.Statuses.State] || !availableContext[github.Statuses.Context] {
 		err := fmt.Errorf(`
 		This state or context reported [%v, %v] is invalid, it can be one of the following: 
 		Available states:  [error, failure, pending, success] 
-		Available contexts: [ci/build, ci/deploy, ci/unittests, ci/codequality]`, state, context)
+		Available contexts: [ci/build, ci/deploy, ci/unittests, ci/codequality]`, github.Statuses.State, github.Statuses.Context)
 		return "", err
 	}
-	github := new(Github)
-	github.statusesInit(context, state, description, targetUrl)
 
 	payload, _ := json.Marshal(github.Statuses)
 	url := ("https://api.github.com/repos/" + github.Organization + "/" + github.Repository + "/statuses/" + github.Sha)

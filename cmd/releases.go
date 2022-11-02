@@ -11,7 +11,9 @@ var releasesCmd = &cobra.Command{
 	Use:   "releases",
 	Short: "Set a new release to a Github repository",
 	Run: func(cmd *cobra.Command, args []string) {
-		res, err := github.Releases(tagName, targetCommitish, name, body, draft, prerelease, generateReleaseNotes)
+		github := github.Github{}
+		init := github.ReleasesInit(tagName, targetCommitish, name, body, draft, prerelease, generateReleaseNotes)
+		res, err := github.SetRelease(init)
 		if err != nil {
 			fmt.Println(err)
 		}

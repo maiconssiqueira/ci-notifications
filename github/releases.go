@@ -11,29 +11,32 @@ import (
 	"github.com/maiconssiqueira/ci-notifications/utils/config"
 )
 
-func (g *Github) releasesInit(tagName string, targetCommitish string, name string, body string, draft bool, prerelease bool, generateReleaseNotes bool) {
-	g.Releases.TagName = tagName
-	g.Releases.TargetCommitish = targetCommitish
-	g.Releases.Name = name
-	g.Releases.Body = body
-	g.Releases.Draft = draft
-	g.Releases.Prerelease = prerelease
-	g.Releases.GenerateReleaseNotes = generateReleaseNotes
-	g.Organization = config.Vars["ORGANIZATION"]
-	g.Repository = config.Vars["REPOSITORY"]
-	g.Token = config.Vars["GHTOKEN"]
+func (g *Github) ReleasesInit(tagName string, targetCommitish string, name string, body string, draft bool, prerelease bool, generateReleaseNotes bool) *Github {
+	config := config.New()
+	return &Github{
+		Organization: config.Github.Organization,
+		Repository:   config.Github.Repository,
+		Token:        config.Github.Token,
+		Releases: releases{
+			TagName:              tagName,
+			TargetCommitish:      targetCommitish,
+			Name:                 name,
+			Body:                 body,
+			Draft:                draft,
+			Prerelease:           prerelease,
+			GenerateReleaseNotes: generateReleaseNotes,
+		},
+	}
 }
 
-func Releases(tagName string, targetCommitish string, name string, body string, draft bool, prerelease bool, generateReleaseNotes bool) (string, error) {
-	tagValidate, _ := regexp.MatchString("^(v[0-9]+)(\\.[0-9]+)(\\.[0-9])(|\\-rc\\.[0-9])(|\\-rc\\.[0-9])$", tagName)
+func (g *Github) SetRelease(github *Github) (string, error) {
+	tagValidate, _ := regexp.MatchString("^(v[0-9]+)(\\.[0-9]+)(\\.[0-9])(|\\-rc\\.[0-9])(|\\-rc\\.[0-9])$", github.Releases.TagName)
 	if !tagValidate {
 		err := fmt.Errorf(`
 		This organization uses the semantic version pattern. You sent %v and the allowed is [v0.0.0, v0.0.0-rc0, v0.0.0-beta0]
-		`, tagName)
+		`, github.Releases.TagName)
 		return "", err
 	}
-	github := new(Github)
-	github.releasesInit(tagName, targetCommitish, name, body, draft, prerelease, generateReleaseNotes)
 
 	payload, _ := json.Marshal(github.Releases)
 	url := ("https://api.github.com/repos/" + github.Organization + "/" + github.Repository + "/releases")

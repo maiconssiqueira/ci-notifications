@@ -10,19 +10,22 @@ import (
 	"github.com/maiconssiqueira/ci-notifications/utils/config"
 )
 
-func (g *Github) commentInit(prNumber int, body string) {
-	g.Comments.PrNumber = prNumber
-	g.Comments.Body = body
-	g.Organization = config.Vars["ORGANIZATION"]
-	g.Repository = config.Vars["REPOSITORY"]
-	g.Token = config.Vars["GHTOKEN"]
+func (g *Github) CommentInit(prNumber int, body string) *Github {
+	config := config.New()
+	return &Github{
+		Organization: config.Github.Organization,
+		Repository:   config.Github.Repository,
+		Token:        config.Github.Token,
+		Comments: comments{
+			PrNumber: prNumber,
+			Body:     body,
+		},
+	}
 }
 
-func Comment(prNumber int, body string) (string, error) {
-	github := new(Github)
-	github.commentInit(prNumber, body)
+func (g *Github) SendComment(github *Github) (string, error) {
 	payload, _ := json.Marshal(github.Comments)
-	url := ("https://api.github.com/repos/" + github.Organization + "/" + github.Repository + "/issues/" + strconv.Itoa(prNumber) + "/comments")
+	url := ("https://api.github.com/repos/" + github.Organization + "/" + github.Repository + "/issues/" + strconv.Itoa(github.Comments.PrNumber) + "/comments")
 	res := http.HttpPost(payload, url, "", github.Token)
 
 	resPretty := &bytes.Buffer{}
@@ -30,6 +33,5 @@ func Comment(prNumber int, body string) (string, error) {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	return resPretty.String(), nil
 }
