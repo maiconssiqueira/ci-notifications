@@ -46,6 +46,10 @@ go run main.go github statuses \
   --targetUrl http://jenkins.mycompany.io
 ```
 
-![alt statuses](img/status.png)
+<div>
+  <center>
+    <img src="img/status.png" alt="drawing" width="600"/>
+  </center>
+</div>
 
 #### Pull Request comments:
