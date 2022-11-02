@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"strings"
 )
@@ -32,7 +33,11 @@ func checkVariables(variables []string) error {
 }
 
 func New() *Config {
-	checkVariables([]string{"GHTOKEN", "ORGANIZATION", "REPOSITORY"})
+	err := checkVariables([]string{"GHTOKEN", "ORGANIZATION", "REPOSITORY"})
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	return &Config{
 		Github: Github{
 			Token:        os.Getenv("GHTOKEN"),
