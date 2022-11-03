@@ -50,6 +50,8 @@ go run main.go github statuses \
   </center>
 </div>
 
+---
+
 #### Pull Request comments:
 Using from the command line:
 - ##### Simple text:
@@ -63,7 +65,6 @@ go run main.go github comments \
     <img src="img/comment.png" alt="drawing" width="600"/>
   </center>
 </div>
-
 
 - ##### Markdown Text:
 Write the message 
@@ -82,6 +83,8 @@ go run main.go github comments \
   </center>
 </div>
 
+---
+
 #### Set branch release:
 Using from the command line:
 
@@ -98,10 +101,13 @@ go run main.go github releases \
   </center>
 </div>
 
+---
+
 By default the following items already have a value set:  
 - ***Draft***: false 
 - ***Pre-Release***: false
 - ***Generate Release Notes***: true
+
 If you want to set another value, you can use the following flags:
 ```bash
   -d, --draft                    True to create a draft (unpublished) release, false to create a published one
