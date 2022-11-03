@@ -14,11 +14,9 @@ Continuous Delivery Notifications is intended to make it easier to send notifica
 - Releases:
   - Releases are based on Git tags, which mark a specific point in your repository's history. A tag date may be different than a release date since they can be created at different times.
 
-### Discord
-WIP
-
-### Telegram
-WIP
+### ToDo
+* [ ] Send messages to Discord and Telegram
+* [ ] Tests
 
 ### How-to use:
 First of all, you need to declare the following variables.
@@ -53,3 +51,62 @@ go run main.go github statuses \
 </div>
 
 #### Pull Request comments:
+Using from the command line:
+- ##### Simple text:
+```bash
+go run main.go github comments \
+  --pullrequest 16 \
+  --message "Hooray"
+```
+<div>
+  <center>
+    <img src="img/comment.png" alt="drawing" width="600"/>
+  </center>
+</div>
+
+
+- ##### Markdown Text:
+Write the message 
+```bash
+go run main.go github comments \
+  --pullrequest 16 \
+  --message "Markdown
+  <br/> **Bold message**
+  <br/> *Italic*
+  <br/> :warning: :white_check_mark: :red_circle: :+1: :-1:
+  <br/> <details> <summary>Click here</summary> :boom:Kabum! </details>"
+```
+<div>
+  <center>
+    <img src="img/comment-markdown.png" alt="drawing" width="600"/>
+  </center>
+</div>
+
+#### Set branch release:
+Using from the command line:
+
+```bash
+go run main.go github releases \
+  --body "Batman release" \
+  --name v4.7.1 \
+  --tagName v4.7.1 \
+  --targetCommitish main
+```
+<div>
+  <center>
+    <img src="img/releases.png" alt="drawing" width="500"/>
+  </center>
+</div>
+
+By default the following items already have a value set:  
+- ***Draft***: false 
+- ***Pre-Release***: false
+- ***Generate Release Notes***: true
+If you want to set another value, you can use the following flags:
+```bash
+  -d, --draft                    True to create a draft (unpublished) release, false to create a published one
+  -g, --generateReleaseNotes     Whether to automatically generate the name and body for this release. 
+                                    If name is specified, the specified name will be used; otherwise, a name will be automatically generated. 
+                                    If body is specified, the body will be pre-pended to the automatically generated notes (default true)
+  -p, --prerelease               True to identify the release as a prerelease. false to identify the release as a full release
+```
