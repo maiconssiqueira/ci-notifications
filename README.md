@@ -1,7 +1,7 @@
-# *CI Notification*
+# *Notifications CLI*
 
 ## Integrations
-Continuous Delivery Notifications is intended to make it easier to send notifications to pipeline-integrated resources.
+Continuous Delivery Notifications CLI was planned to make it easier to send notifications to pipeline-integrated resources.
 
 ## Available Resources
 ### Github
