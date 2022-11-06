@@ -2,6 +2,8 @@ package http
 
 import (
 	"bytes"
+	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -22,12 +24,19 @@ func HttpPost(payload []byte, url string, contentType string, token string) []by
 	client := &http.Client{
 		Jar: jar,
 	}
-
 	res, err := client.Do(req)
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	data, _ := ioutil.ReadAll(res.Body)
 	return data
+}
+
+func PrettyJson(input []byte) (*bytes.Buffer, error) {
+	resPretty := &bytes.Buffer{}
+	err := json.Indent(resPretty, input, "", "  ")
+	if err != nil {
+		return nil, fmt.Errorf("pretty json %w", err)
+	}
+	return resPretty, nil
 }

@@ -1,5 +1,7 @@
 # *Notifications CLI*
 
+[Feedback Notes](NOTES.md)
+
 ## Integrations
 Continuous Delivery Notifications CLI was planned to make it easier to send notifications to pipeline-integrated resources.
 

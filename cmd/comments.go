@@ -10,14 +10,15 @@ import (
 var commentsCmd = &cobra.Command{
 	Use:   "comments",
 	Short: "The  comments supports send comment on pull requests",
-	Run: func(cmd *cobra.Command, args []string) {
+	RunE: func(cmd *cobra.Command, args []string) error {
 		github := github.Github{}
 		init := github.CommentInit(pullrequest, message)
 		res, err := github.SendComment(init)
 		if err != nil {
-			fmt.Println(err)
+			return err
 		}
 		fmt.Println(res)
+		return nil
 	},
 }
 
