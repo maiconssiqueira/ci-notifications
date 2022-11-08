@@ -25,7 +25,7 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.ci-notifications.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $PWD/config.yaml)")
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
@@ -40,7 +40,7 @@ func initConfig() {
 			os.Exit(1)
 		}
 		viper.AddConfigPath("$PWD")
-		viper.SetConfigName("ci-notifications.yaml")
+		viper.SetConfigName("config.yaml")
 		viper.SetConfigType("yaml")
 	}
 	err := viper.ReadInConfig()

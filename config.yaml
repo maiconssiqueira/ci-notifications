@@ -1,10 +1,10 @@
 contexts:
     ci/build: true
     ci/codequality: true
-    ci/deploy: true
+    ci/deploy: false
     ci/unittest: true
 states:
-    pending: true
+    pending: false
     success: true
     failure: true
     error: true

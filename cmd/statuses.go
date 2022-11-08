@@ -6,9 +6,9 @@ import (
 	"strings"
 
 	"github.com/maiconssiqueira/ci-notifications/github"
+	"github.com/maiconssiqueira/ci-notifications/internal/output"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"golang.org/x/exp/maps"
 )
 
 var statusesCmd = &cobra.Command{
@@ -27,7 +27,7 @@ var statusesCmd = &cobra.Command{
 		if !conf.States[state] || !conf.Contexts[context] {
 			return fmt.Errorf(`this state or context reported [%v, %v] is invalid, it can be one of the following:
         available states:   [%v]
-        available contexts: [%v]`, state, context, strings.Join(maps.Keys(conf.States), ", "), strings.Join(maps.Keys(conf.Contexts), ", "))
+        available contexts: [%v]`, state, context, strings.Join(output.KeysByValue(conf.States, true), ", "), strings.Join(output.KeysByValue(conf.Contexts, true), ", "))
 		}
 
 		if len(sha) != 40 {
