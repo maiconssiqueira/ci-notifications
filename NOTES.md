@@ -15,8 +15,8 @@ https://github.com/maiconssiqueira/notifications-cli/blob/main/cmd/comments.go#L
 - [ ] Não é uma prática recomendada criar pacotes com nomes genéricos como utils. Sugiro você mudar o config para a raiz do projeto (transformando ele em um pacote de domínio) e remover o pacote utils
 Quanto a dúvida da validação dos inputs, eu acho válido fazer isso na camada da CLI mesmo, e não deixar isso para o pacote github (camada de domínio).
 
-Resumindo
-O código está ficando bem maneiro cara, parabéns. Fiz apenas algumas sugestões baseado no código atual. Tem alguns problemas de design mas você vai perceber eles quando começar a escrever os testes :sorriso_pequeno: Não vou apontar eles agora porque você perceber isso é um aprendizado muito bacana. 
+####Resumindo
+O código está ficando bem maneiro cara, parabéns. Fiz apenas algumas sugestões baseado no código atual. Tem alguns problemas de design mas você vai perceber eles quando começar a escrever os testes :sorriso_pequeno: Não vou apontar eles agora porque você perceber isso é um aprendizado muito bacana.
 <br>
 
 - [ ] Se você achar válido podemos fazer um pair quando você chegar a estas dificuldades na hora de escrever os testes e debatemos as soluções juntos. Acho que esse post pode te ajudar bastante quanto aos testes: https://medium.com/inside-picpay/testes-automatizados-em-go-aa5cf9ed672e

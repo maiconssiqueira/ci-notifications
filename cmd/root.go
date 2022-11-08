@@ -19,7 +19,6 @@ var rootCmd = &cobra.Command{
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
 		os.Exit(1)
 	}
 }
@@ -35,13 +34,18 @@ func initConfig() {
 		viper.SetConfigFile(cfgFile)
 	} else {
 		// Find home directory.
-		home, err := homedir.Dir()
+		_, err := homedir.Dir()
 		if err != nil {
 			fmt.Println(err)
 			os.Exit(1)
 		}
-		viper.AddConfigPath(home)
-		viper.SetConfigName(".ci-notifications")
+		viper.AddConfigPath("$PWD")
+		viper.SetConfigName("ci-notifications.yaml")
+		viper.SetConfigType("yaml")
+	}
+	err := viper.ReadInConfig()
+	if err != nil {
+		panic(err)
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match
