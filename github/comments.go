@@ -8,12 +8,11 @@ import (
 	"github.com/maiconssiqueira/ci-notifications/internal/http"
 )
 
-func (g *Github) CommentInit(prNumber int, body string) *Github {
-	config := config.New()
+func (g *Github) CommentInit(prNumber int, body string, repo config.Repository) *Github {
 	return &Github{
-		Organization: config.Github.Organization,
-		Repository:   config.Github.Repository,
-		Token:        config.Github.Token,
+		Organization: repo.Github.Organization,
+		Repository:   repo.Github.Repository,
+		Token:        repo.Github.Token,
 		Comments: comments{
 			PrNumber: prNumber,
 			Body:     body,

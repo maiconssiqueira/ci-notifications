@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/maiconssiqueira/ci-notifications/config"
 	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"
@@ -11,6 +12,8 @@ import (
 )
 
 var cfgFile string
+var repo config.Repository
+var repoConf = repo.New()
 
 var rootCmd = &cobra.Command{
 	Use:   "ci-notifications",
@@ -25,6 +28,7 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
+
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $PWD/config.yaml)")
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

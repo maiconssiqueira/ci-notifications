@@ -7,12 +7,11 @@ import (
 	"github.com/maiconssiqueira/ci-notifications/internal/http"
 )
 
-func (g *Github) StatusesInit(sha string, context string, state string, description string, targetUrl string) *Github {
-	config := config.New()
+func (g *Github) StatusesInit(sha string, context string, state string, description string, targetUrl string, repo config.Repository) *Github {
 	return &Github{
-		Organization: config.Github.Organization,
-		Repository:   config.Github.Repository,
-		Token:        config.Github.Token,
+		Organization: repo.Github.Organization,
+		Repository:   repo.Github.Repository,
+		Token:        repo.Github.Token,
 		Sha:          sha,
 		Statuses: status{
 			Context:     context,

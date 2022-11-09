@@ -19,7 +19,7 @@ var releasesCmd = &cobra.Command{
 		}
 		//TODO
 		github := github.Github{}
-		init := github.ReleasesInit(tagName, targetCommitish, name, body, draft, prerelease, generateReleaseNotes)
+		init := github.ReleasesInit(tagName, targetCommitish, name, body, draft, prerelease, generateReleaseNotes, *repoConf)
 		res, err := github.SetRelease(init)
 		if err != nil {
 			return err

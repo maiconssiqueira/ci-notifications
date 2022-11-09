@@ -38,7 +38,7 @@ var statusesCmd = &cobra.Command{
 		}
 		//TODO
 		github := github.Github{}
-		init := github.StatusesInit(sha, context, state, description, targetUrl)
+		init := github.StatusesInit(sha, context, state, description, targetUrl, *repoConf)
 		res, err := github.Checks(init)
 		if err != nil {
 			return err

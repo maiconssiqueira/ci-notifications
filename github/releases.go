@@ -7,12 +7,11 @@ import (
 	"github.com/maiconssiqueira/ci-notifications/internal/http"
 )
 
-func (g *Github) ReleasesInit(tagName string, targetCommitish string, name string, body string, draft bool, prerelease bool, generateReleaseNotes bool) *Github {
-	config := config.New()
+func (g *Github) ReleasesInit(tagName string, targetCommitish string, name string, body string, draft bool, prerelease bool, generateReleaseNotes bool, repo config.Repository) *Github {
 	return &Github{
-		Organization: config.Github.Organization,
-		Repository:   config.Github.Repository,
-		Token:        config.Github.Token,
+		Organization: repo.Github.Organization,
+		Repository:   repo.Github.Repository,
+		Token:        repo.Github.Token,
 		Releases: releases{
 			TagName:              tagName,
 			TargetCommitish:      targetCommitish,
