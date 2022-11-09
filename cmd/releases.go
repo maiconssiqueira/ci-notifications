@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/maiconssiqueira/ci-notifications/github"
 	"github.com/spf13/cobra"
 )
 
@@ -18,9 +17,8 @@ var releasesCmd = &cobra.Command{
 			return fmt.Errorf(`this organization uses the semantic version pattern. You sent %v and the allowed is [v0.0.0, v0.0.0-rc0, v0.0.0-beta0]`, tagName)
 		}
 		//TODO
-		github := github.Github{}
-		init := github.ReleasesInit(tagName, targetCommitish, name, body, draft, prerelease, generateReleaseNotes, *repoConf)
-		res, err := github.SetRelease(init)
+		init := gh.ReleasesInit(tagName, targetCommitish, name, body, draft, prerelease, generateReleaseNotes, *repoConf)
+		res, err := gh.SetRelease(init)
 		if err != nil {
 			return err
 		}

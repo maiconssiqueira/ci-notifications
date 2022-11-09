@@ -5,7 +5,6 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/maiconssiqueira/ci-notifications/github"
 	"github.com/maiconssiqueira/ci-notifications/internal/output"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -37,9 +36,8 @@ var statusesCmd = &cobra.Command{
 			return fmt.Errorf(`please, check targetUrl. Target url must use http(s) scheme`)
 		}
 		//TODO
-		github := github.Github{}
-		init := github.StatusesInit(sha, context, state, description, targetUrl, *repoConf)
-		res, err := github.Checks(init)
+		init := gh.StatusesInit(sha, context, state, description, targetUrl, *repoConf)
+		res, err := gh.Checks(init)
 		if err != nil {
 			return err
 		}

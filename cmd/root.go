@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/maiconssiqueira/ci-notifications/config"
+	"github.com/maiconssiqueira/ci-notifications/github"
 	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"
@@ -13,6 +14,8 @@ import (
 
 var cfgFile string
 var repo config.Repository
+var gh github.Github
+
 var repoConf = repo.New()
 
 var rootCmd = &cobra.Command{
