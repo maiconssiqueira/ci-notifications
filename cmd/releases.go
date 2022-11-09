@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"regexp"
 
 	"github.com/maiconssiqueira/ci-notifications/github"
 	"github.com/spf13/cobra"
@@ -10,7 +11,13 @@ import (
 var releasesCmd = &cobra.Command{
 	Use:   "releases",
 	Short: "Set a new release to a Github repository",
-	RunE: func(cmd *cobra.Command, args []string) error {
+	RunE: func(_ *cobra.Command, _ []string) error {
+
+		valid, _ := regexp.MatchString("^(v[0-9]+)(\\.[0-9]+)(\\.[0-9])(|\\-rc)(|\\-beta)(|\\-alpha)([0-9])$", tagName)
+		if !valid {
+			return fmt.Errorf(`this organization uses the semantic version pattern. You sent %v and the allowed is [v0.0.0, v0.0.0-rc0, v0.0.0-beta0]`, tagName)
+		}
+		//TODO
 		github := github.Github{}
 		init := github.ReleasesInit(tagName, targetCommitish, name, body, draft, prerelease, generateReleaseNotes)
 		res, err := github.SetRelease(init)
