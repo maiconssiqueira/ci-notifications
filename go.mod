@@ -6,7 +6,6 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/spf13/cobra v1.6.1
 	github.com/spf13/viper v1.13.0
-	golang.org/x/exp v0.0.0-20221106115401-f9659909a136
 )
 
 require (
