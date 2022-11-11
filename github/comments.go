@@ -8,7 +8,7 @@ import (
 	"github.com/maiconssiqueira/ci-notifications/internal/http"
 )
 
-func (g *Github) CommentInit(prNumber int, body string, repo config.Repository) *Github {
+func (g *Github) InitComment(prNumber int, body string, repo config.Repository) *Github {
 	return &Github{
 		Organization: repo.Github.Organization,
 		Repository:   repo.Github.Repository,

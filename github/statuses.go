@@ -7,7 +7,7 @@ import (
 	"github.com/maiconssiqueira/ci-notifications/internal/http"
 )
 
-func (g *Github) StatusesInit(sha string, context string, state string, description string, targetUrl string, repo config.Repository) *Github {
+func (g *Github) InitStatuses(sha string, context string, state string, description string, targetUrl string, repo config.Repository) *Github {
 	return &Github{
 		Organization: repo.Github.Organization,
 		Repository:   repo.Github.Repository,

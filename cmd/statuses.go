@@ -15,7 +15,7 @@ var statusesCmd = &cobra.Command{
 	Short: "Send updates to Github Checks",
 	Long:  `Status checks allow you to send data related to tests or routines submitted to the repository via CI/CD pipelines.`,
 	RunE: func(_ *cobra.Command, _ []string) error {
-		//TODO
+
 		type Config struct {
 			States   map[string]bool `mapstructure:"states"`
 			Contexts map[string]bool `mapstructure:"contexts"`
@@ -35,8 +35,8 @@ var statusesCmd = &cobra.Command{
 		if !valid {
 			return fmt.Errorf(`please, check targetUrl. Target url must use http(s) scheme`)
 		}
-		//TODO
-		init := gh.StatusesInit(sha, context, state, description, targetUrl, *repoConf)
+
+		init := gh.InitStatuses(sha, context, state, description, targetUrl, *repoConf)
 		res, err := gh.Checks(init)
 		if err != nil {
 			return err

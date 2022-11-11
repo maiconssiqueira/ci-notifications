@@ -13,7 +13,9 @@ import (
 )
 
 var cfgFile string
+
 var repo config.Repository
+
 var gh github.Github
 
 var repoConf = repo.New()
