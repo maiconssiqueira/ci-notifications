@@ -1,5 +1,7 @@
 package github
 
+type Comment interface {
+}
 type status struct {
 	Context     string `json:"context"`
 	State       string `json:"state"`

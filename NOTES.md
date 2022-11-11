@@ -12,7 +12,7 @@ https://github.com/maiconssiqueira/notifications-cli/blob/main/cmd/comments.go#L
 - [ ] Se você der uma olhada neste post: https://medium.com/inside-picpay/organizando-um-projeto-e-convencionando-nomes-em-go-c18b3fa88ba0 vai ver um conceito legal que é o de pacotes de domínio. Aplicando isso no seu repo, o diretório github está no lugar certo, pq ele é um pacote do domínio da sua aplicação. Já o pacote http me parece conter apenas funcionalidades de apoio ao seu domínio. Minha sugestão é você criar um diretório chamado internal e colocar o pacote http dentro. Deixa mais organizado.
 <br>
 
-- [ ] Não é uma prática recomendada criar pacotes com nomes genéricos como utils. Sugiro você mudar o config para a raiz do projeto (transformando ele em um pacote de domínio) e remover o pacote utils
+- [x] Não é uma prática recomendada criar pacotes com nomes genéricos como utils. Sugiro você mudar o config para a raiz do projeto (transformando ele em um pacote de domínio) e remover o pacote utils
 Quanto a dúvida da validação dos inputs, eu acho válido fazer isso na camada da CLI mesmo, e não deixar isso para o pacote github (camada de domínio).
 
 ####Resumindo

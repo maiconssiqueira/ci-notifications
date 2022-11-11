@@ -3,7 +3,12 @@ package output
 import (
 	"fmt"
 	"os"
+	"regexp"
 	"strings"
+)
+
+const (
+	regexRelease = "^(v[0-9]+)(\\.[0-9]+)(\\.[0-9])(|\\-rc)(|\\-beta)(|\\-alpha)([0-9])$"
 )
 
 func KeysByValue(m map[string]bool, value bool) []string {
@@ -27,6 +32,14 @@ func CheckVariables(variables []string) error {
 	if len(withError) > 0 {
 		error := fmt.Errorf("some variables have not been defined or is empty. Check it out: %v", strings.Join(withError, ", "))
 		return error
+	}
+	return nil
+}
+
+func CheckSemanticVersioning(semver string) error {
+	valid, _ := regexp.MatchString(regexRelease, semver)
+	if !valid {
+		return fmt.Errorf(`this organization uses the semantic version pattern. You sent %v and the allowed is [v0.0.0, v0.0.0-rc0, v0.0.0-beta0]`, semver)
 	}
 	return nil
 }
