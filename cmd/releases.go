@@ -17,7 +17,7 @@ var releasesCmd = &cobra.Command{
 			return fmt.Errorf(`this organization uses the semantic version pattern. You sent %v and the allowed is [v0.0.0, v0.0.0-rc0, v0.0.0-beta0]`, tagName)
 		}
 		//TODO
-		init := gh.ReleasesInit(tagName, targetCommitish, name, body, draft, prerelease, generateReleaseNotes, *repoConf)
+		init := gh.InitRelease(tagName, targetCommitish, name, body, draft, prerelease, generateReleaseNotes, *repoConf)
 		res, err := gh.SetRelease(init)
 		if err != nil {
 			return err

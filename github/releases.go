@@ -7,7 +7,7 @@ import (
 	"github.com/maiconssiqueira/ci-notifications/internal/http"
 )
 
-func (g *Github) ReleasesInit(tagName string, targetCommitish string, name string, body string, draft bool, prerelease bool, generateReleaseNotes bool, repo config.Repository) *Github {
+func (g *Github) InitRelease(tagName string, targetCommitish string, name string, body string, draft bool, prerelease bool, generateReleaseNotes bool, repo config.Repository) *Github {
 	return &Github{
 		Organization: repo.Github.Organization,
 		Repository:   repo.Github.Repository,
