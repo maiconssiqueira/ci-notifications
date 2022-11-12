@@ -3,14 +3,15 @@ package http
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"net/http/cookiejar"
+
+	"github.com/maiconssiqueira/ci-notifications/internal/output"
 )
 
-func HttpPost(payload []byte, url string, contentType string, token string) []byte {
+func httpPost(payload []byte, url string, contentType string, token string) []byte {
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(payload))
 	if err != nil {
 		log.Fatal(err)
@@ -28,15 +29,13 @@ func HttpPost(payload []byte, url string, contentType string, token string) []by
 	if err != nil {
 		log.Fatal(err)
 	}
-	data, _ := ioutil.ReadAll(res.Body)
+	data, _ := io.ReadAll(res.Body)
 	return data
 }
 
-func PrettyJson(input []byte) (*bytes.Buffer, error) {
-	resPretty := &bytes.Buffer{}
-	err := json.Indent(resPretty, input, "", "  ")
-	if err != nil {
-		return nil, fmt.Errorf("pretty json %w", err)
-	}
-	return resPretty, nil
+func Post(content any, url string, contentType string, token string) (string, error) {
+	payload, _ := json.Marshal(content)
+	res := httpPost(payload, url, contentType, token)
+	resPretty, _ := output.PrettyJson(res)
+	return resPretty.String(), nil
 }

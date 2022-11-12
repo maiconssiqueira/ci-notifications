@@ -1,6 +1,8 @@
 package output
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"os"
 	"regexp"
@@ -8,7 +10,7 @@ import (
 )
 
 const (
-	regexRelease = "^(v[0-9]+)(\\.[0-9]+)(\\.[0-9])(|\\-rc)(|\\-beta)(|\\-alpha)([0-9])$"
+	regexRelease = "^v([0-9]+)(\\.[0-9]+)(\\.[0-9]?)(|\\-rc)(|\\-beta)(|\\-alpha)([0-9])$"
 )
 
 func KeysByValue(m map[string]bool, value bool) []string {
@@ -42,4 +44,13 @@ func CheckSemanticVersioning(semver string) error {
 		return fmt.Errorf(`this organization uses the semantic version pattern. You sent %v and the allowed is [v0.0.0, v0.0.0-rc0, v0.0.0-beta0]`, semver)
 	}
 	return nil
+}
+
+func PrettyJson(input []byte) (*bytes.Buffer, error) {
+	resPretty := &bytes.Buffer{}
+	err := json.Indent(resPretty, input, "", "  ")
+	if err != nil {
+		return nil, fmt.Errorf("pretty json %w", err)
+	}
+	return resPretty, nil
 }

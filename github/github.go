@@ -1,7 +1,5 @@
 package github
 
-type Comment interface {
-}
 type status struct {
 	Context     string `json:"context"`
 	State       string `json:"state"`
@@ -27,6 +25,7 @@ type comments struct {
 type Github struct {
 	Organization string `json:"organization"`
 	Repository   string `json:"repository"`
+	Url          string `json:"url"`
 	Token        string
 	Sha          string   `json:"sha"`
 	Statuses     status   `json:"status"`

@@ -1,7 +1,6 @@
 package github
 
 import (
-	"encoding/json"
 	"strconv"
 
 	"github.com/maiconssiqueira/ci-notifications/config"
@@ -13,6 +12,7 @@ func (g *Github) InitComment(prNumber int, body string, repo config.Repository) 
 		Organization: repo.Github.Organization,
 		Repository:   repo.Github.Repository,
 		Token:        repo.Github.Token,
+		Url:          repo.Github.Url,
 		Comments: comments{
 			PrNumber: prNumber,
 			Body:     body,
@@ -21,10 +21,7 @@ func (g *Github) InitComment(prNumber int, body string, repo config.Repository) 
 }
 
 func (g *Github) SendComment(github *Github) (string, error) {
-	payload, _ := json.Marshal(github.Comments)
-	url := ("https://api.github.com/repos/" + github.Organization + "/" + github.Repository + "/issues/" + strconv.Itoa(github.Comments.PrNumber) + "/comments")
-	res := http.HttpPost(payload, url, "", github.Token)
-	resPretty, _ := http.PrettyJson(res)
-
-	return resPretty.String(), nil
+	url := (github.Url + "/issues/" + strconv.Itoa(github.Comments.PrNumber) + "/comments")
+	json, _ := http.Post(github.Comments, url, "", github.Token)
+	return json, nil
 }

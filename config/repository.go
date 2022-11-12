@@ -15,6 +15,7 @@ type github struct {
 	Token        string
 	Organization string
 	Repository   string
+	Url          string
 }
 
 func (r Repository) New() *Repository {
@@ -27,6 +28,7 @@ func (r Repository) New() *Repository {
 			Token:        os.Getenv("GHTOKEN"),
 			Organization: os.Getenv("ORGANIZATION"),
 			Repository:   os.Getenv("REPOSITORY"),
+			Url:          "https://api.github.com/repos/" + os.Getenv("ORGANIZATION") + "/" + os.Getenv("REPOSITORY"),
 		},
 	}
 }
