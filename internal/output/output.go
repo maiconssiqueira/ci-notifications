@@ -23,7 +23,7 @@ func KeysByValue(m map[string]bool, value bool) []string {
 	return keys
 }
 
-func CheckVariables(variables []string) error {
+func CheckVariables(variables ...string) error {
 	withError := []string{}
 	for _, variable := range variables {
 		_, exists := os.LookupEnv(variable)

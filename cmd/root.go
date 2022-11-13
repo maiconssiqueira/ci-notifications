@@ -18,7 +18,7 @@ var repo config.Repository
 
 var gh github.Github
 
-var repoConf = repo.New()
+var repoConf, _ = repo.New()
 
 var rootCmd = &cobra.Command{
 	Use:   "ci-notifications",
