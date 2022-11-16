@@ -1,6 +1,7 @@
 package output_test
 
 import (
+	"os"
 	"testing"
 
 	"github.com/maiconssiqueira/ci-notifications/internal/output"
@@ -44,6 +45,23 @@ func TestOutput(t *testing.T) {
 		toTest := "v1.0.0-beta1"
 		got := output.CheckSemanticVersioning(toTest)
 
+		if got != nil {
+			t.Errorf("got %v want %v", got, nil)
+		}
+	})
+	t.Run("CheckVariablesWithoutValue", func(t *testing.T) {
+		variable := "testing"
+		os.Setenv(variable, "")
+		want := "some variables have not been defined or is empty. Check it out: " + variable
+		got := output.CheckVariables(variable)
+		if got.Error() != want {
+			t.Errorf("got %v want %v", got, want)
+		}
+	})
+	t.Run("CheckVariablesWithValue", func(t *testing.T) {
+		variable := "testing"
+		os.Setenv(variable, "withValue")
+		got := output.CheckVariables(variable)
 		if got != nil {
 			t.Errorf("got %v want %v", got, nil)
 		}
