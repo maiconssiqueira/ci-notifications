@@ -37,7 +37,7 @@ var statusesCmd = &cobra.Command{
 		}
 
 		init := gh.InitStatuses(sha, context, state, description, targetUrl, *repoConf)
-		res, err := gh.Checks(init)
+		res, err := gh.Checks(printLog, init)
 		if err != nil {
 			return err
 		}
@@ -51,6 +51,7 @@ var context string
 var state string
 var description string
 var targetUrl string
+var printLog bool
 
 func init() {
 	rootCmd.AddCommand(statusesCmd)
@@ -62,6 +63,7 @@ func init() {
 	you would want to provide the deep link for the build output for this specific SHA: http://ci.example.com/user/repo/build/sha`)
 	statusesCmd.Flags().StringVarP(&state, "state", "s", "", "The state of the status. Can be one of: error, failure, pending, success")
 	statusesCmd.Flags().StringVarP(&description, "description", "d", "", "The short description of the status")
+	statusesCmd.Flags().BoolVarP(&printLog, "printlog", "p", false, "Print extended log")
 	statusesCmd.MarkFlagRequired("sha")
 	statusesCmd.MarkFlagRequired("context")
 	statusesCmd.MarkFlagRequired("state")

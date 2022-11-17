@@ -1,10 +1,18 @@
 package github
 
+import "time"
+
 type status struct {
-	Context     string `json:"context"`
-	State       string `json:"state"`
-	Description string `json:"description"`
-	TargetUrl   string `json:"target_url"`
+	Context        string         `json:"context"`
+	State          string         `json:"state"`
+	Description    string         `json:"description"`
+	TargetUrl      string         `json:"target_url"`
+	ReturnStatuses returnStatuses `json:"return_status"`
+}
+
+type returnStatuses struct {
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type releases struct {

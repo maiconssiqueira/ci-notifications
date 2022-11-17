@@ -18,14 +18,17 @@ var repo config.Repository
 
 var gh github.Github
 
-var repoConf, _ = repo.New()
-
 var rootCmd = &cobra.Command{
 	Use:   "ci-notifications",
 	Short: "This is a simple and easy way to notify pipeline steps in your Github repository",
 }
 
+// TODO
+// Melhorar
+var repoConf, _ = repo.New()
+
 func Execute() {
+
 	if err := rootCmd.Execute(); err != nil {
 		os.Exit(1)
 	}

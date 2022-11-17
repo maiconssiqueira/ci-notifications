@@ -25,6 +25,6 @@ func (g *Github) InitRelease(tagName string, targetCommitish string, name string
 
 func (g *Github) SetRelease(github *Github) (string, error) {
 	url := (github.Url + "/releases")
-	json, _ := http.Post(github.Releases, url, "application/json", github.Token)
-	return json, nil
+	_, jsonPretty, _ := http.Post(github.Releases, url, "application/json", github.Token)
+	return jsonPretty, nil
 }

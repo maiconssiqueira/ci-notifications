@@ -22,6 +22,6 @@ func (g *Github) InitComment(prNumber int, body string, repo config.Repository) 
 
 func (g *Github) SendComment(github *Github) (string, error) {
 	url := (github.Url + "/issues/" + strconv.Itoa(github.Comments.PrNumber) + "/comments")
-	json, _ := http.Post(github.Comments, url, "", github.Token)
-	return json, nil
+	_, jsonPretty, _ := http.Post(github.Comments, url, "", github.Token)
+	return jsonPretty, nil
 }
