@@ -63,7 +63,7 @@ func init() {
 	you would want to provide the deep link for the build output for this specific SHA: http://ci.example.com/user/repo/build/sha`)
 	statusesCmd.Flags().StringVarP(&state, "state", "s", "", "The state of the status. Can be one of: error, failure, pending, success")
 	statusesCmd.Flags().StringVarP(&description, "description", "d", "", "The short description of the status")
-	statusesCmd.Flags().BoolVarP(&printLog, "printlog", "p", false, "Print extended log")
+	statusesCmd.Flags().BoolVarP(&printLog, "extended", "e", false, "Print extended log")
 	statusesCmd.MarkFlagRequired("sha")
 	statusesCmd.MarkFlagRequired("context")
 	statusesCmd.MarkFlagRequired("state")
