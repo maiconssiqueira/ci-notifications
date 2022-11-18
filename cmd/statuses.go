@@ -10,6 +10,14 @@ import (
 	"github.com/spf13/viper"
 )
 
+var (
+	sha         string
+	context     string
+	state       string
+	description string
+	targetUrl   string
+)
+
 var statusesCmd = &cobra.Command{
 	Use:   "statuses",
 	Short: "Send updates to Github Checks",
@@ -43,12 +51,6 @@ var statusesCmd = &cobra.Command{
 		return nil
 	},
 }
-
-var sha string
-var context string
-var state string
-var description string
-var targetUrl string
 
 func init() {
 	rootCmd.AddCommand(statusesCmd)

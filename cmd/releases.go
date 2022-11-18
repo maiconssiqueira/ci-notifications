@@ -7,6 +7,16 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var (
+	tagName              string
+	targetCommitish      string
+	name                 string
+	body                 string
+	draft                bool
+	prerelease           bool
+	generateReleaseNotes bool
+)
+
 var releasesCmd = &cobra.Command{
 	Use:   "releases",
 	Short: "Set a new release to a Github repository",
@@ -23,14 +33,6 @@ var releasesCmd = &cobra.Command{
 		return nil
 	},
 }
-
-var tagName string
-var targetCommitish string
-var name string
-var body string
-var draft bool
-var prerelease bool
-var generateReleaseNotes bool
 
 func init() {
 	rootCmd.AddCommand(releasesCmd)
