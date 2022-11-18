@@ -9,7 +9,7 @@ import (
 	"github.com/maiconssiqueira/ci-notifications/internal/http"
 )
 
-func (n *NotificationCli) InitStatuses(sha string, context string, state string, description string, targetUrl string, repo config.Repository) *Github {
+func (n *Notification) InitStatuses(sha string, context string, state string, description string, targetUrl string, repo config.Repository) *Github {
 	return &Github{
 		Organization: repo.Github.Organization,
 		Repository:   repo.Github.Repository,
@@ -25,7 +25,7 @@ func (n *NotificationCli) InitStatuses(sha string, context string, state string,
 	}
 }
 
-func (n *NotificationCli) SendStatus(printLog bool, github *Github) (string, error) {
+func (n *Notification) SendStatus(printLog bool, github *Github) (string, error) {
 	url := (github.Url + "/statuses/" + github.Sha)
 	raw, pretty, err := http.Post(github.Statuses, url, "application/json", github.Token)
 	if err != nil {
