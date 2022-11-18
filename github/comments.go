@@ -22,6 +22,6 @@ func (n *notification) InitComment(prNumber int, body string, repo config.Reposi
 
 func (n *notification) SendComment(github *github) (string, error) {
 	url := (github.Url + "/issues/" + strconv.Itoa(github.Comments.PrNumber) + "/comments")
-	_, jsonPretty, _ := http.Post(github.Comments, url, "", github.Token)
-	return jsonPretty, nil
+	_, pretty, _ := http.Post(github.Comments, url, "", github.Token)
+	return pretty, nil
 }

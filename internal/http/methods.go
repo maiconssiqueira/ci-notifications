@@ -33,7 +33,7 @@ func httpPost(payload []byte, url string, contentType string, token string) []by
 	return data
 }
 
-func Post(content any, url string, contentType string, token string) ([]byte, string, error) {
+func Post(content any, url string, contentType string, token string) (raw []byte, pretty string, err error) {
 	payload, _ := json.Marshal(content)
 	res := httpPost(payload, url, contentType, token)
 	resPretty, _ := output.PrettyJson(res)
