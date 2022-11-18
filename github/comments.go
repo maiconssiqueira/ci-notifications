@@ -7,7 +7,7 @@ import (
 	"github.com/maiconssiqueira/ci-notifications/internal/http"
 )
 
-func (n *notification) InitComment(prNumber int, body string, repo config.Repository) *github {
+func (n *Notification) InitComment(prNumber int, body string, repo config.Repository) *github {
 	return &github{
 		Organization: repo.Github.Organization,
 		Repository:   repo.Github.Repository,
@@ -20,7 +20,7 @@ func (n *notification) InitComment(prNumber int, body string, repo config.Reposi
 	}
 }
 
-func (n *notification) SendComment(github *github) (string, error) {
+func (n *Notification) SendComment(github *github) (string, error) {
 	url := (github.Url + "/issues/" + strconv.Itoa(github.Comments.PrNumber) + "/comments")
 	_, pretty, _ := http.Post(github.Comments, url, "", github.Token)
 	return pretty, nil
