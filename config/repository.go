@@ -17,10 +17,10 @@ type Github struct {
 	Url          string
 }
 
-func (r Repository) New() (*Repository, error) {
+func (r Repository) New() *Repository {
 	err := output.CheckVariables("GHTOKEN", "ORGANIZATION", "REPOSITORY")
 	if err != nil {
-		return nil, err
+		return nil
 	}
 	return &Repository{
 		Github: Github{
@@ -29,5 +29,5 @@ func (r Repository) New() (*Repository, error) {
 			Repository:   os.Getenv("REPOSITORY"),
 			Url:          "https://api.github.com/repos/" + os.Getenv("ORGANIZATION") + "/" + os.Getenv("REPOSITORY"),
 		},
-	}, nil
+	}
 }

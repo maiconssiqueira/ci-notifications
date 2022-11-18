@@ -15,8 +15,7 @@ var releasesCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		init := gh.InitRelease(tagName, targetCommitish, name, body, draft, prerelease, generateReleaseNotes, *repoConf)
-		res, err := gh.SetRelease(init)
+		res, err := notify.SetRelease(notify.InitRelease(tagName, targetCommitish, name, body, draft, prerelease, generateReleaseNotes, *repoConf))
 		if err != nil {
 			return err
 		}

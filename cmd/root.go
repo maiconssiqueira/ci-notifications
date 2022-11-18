@@ -12,23 +12,19 @@ import (
 	"github.com/spf13/viper"
 )
 
-var cfgFile string
-
-var repo config.Repository
-
-var gh github.Github
+var (
+	cfgFile  string
+	repo     config.Repository
+	notify   = github.NewNotification()
+	repoConf = repo.New()
+)
 
 var rootCmd = &cobra.Command{
 	Use:   "ci-notifications",
 	Short: "This is a simple and easy way to notify pipeline steps in your Github repository",
 }
 
-// TODO
-// Melhorar
-var repoConf, _ = repo.New()
-
 func Execute() {
-
 	if err := rootCmd.Execute(); err != nil {
 		os.Exit(1)
 	}

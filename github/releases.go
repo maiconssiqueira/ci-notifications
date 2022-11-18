@@ -5,7 +5,7 @@ import (
 	"github.com/maiconssiqueira/ci-notifications/internal/http"
 )
 
-func (g *Github) InitRelease(tagName string, targetCommitish string, name string, body string, draft bool, prerelease bool, generateReleaseNotes bool, repo config.Repository) *Github {
+func (n *NotificationCli) InitRelease(tagName string, targetCommitish string, name string, body string, draft bool, prerelease bool, generateReleaseNotes bool, repo config.Repository) *Github {
 	return &Github{
 		Organization: repo.Github.Organization,
 		Repository:   repo.Github.Repository,
@@ -23,7 +23,7 @@ func (g *Github) InitRelease(tagName string, targetCommitish string, name string
 	}
 }
 
-func (g *Github) SetRelease(github *Github) (string, error) {
+func (n *NotificationCli) SetRelease(github *Github) (string, error) {
 	url := (github.Url + "/releases")
 	_, jsonPretty, _ := http.Post(github.Releases, url, "application/json", github.Token)
 	return jsonPretty, nil

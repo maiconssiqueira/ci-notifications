@@ -9,29 +9,17 @@ import (
 )
 
 func TestConfigRepository(t *testing.T) {
-	t.Run("missingVariables", func(t *testing.T) {
-		os.Setenv("GHTOKEN", "Testing")
-
-		var repo config.Repository
-		repoConf, err := repo.New()
-		got := err.Error()
-		want := "some variables have not been defined or is empty. Check it out: ORGANIZATION, REPOSITORY"
-
-		if got != want && repoConf == nil {
-			t.Errorf("got %v want %v", got, want)
-		}
-	})
 	t.Run("isValid", func(t *testing.T) {
 		os.Setenv("GHTOKEN", "Testing")
 		os.Setenv("ORGANIZATION", "Testing")
 		os.Setenv("REPOSITORY", "Testing")
 
 		var repo config.Repository
-		repoConfig, err := repo.New()
+		repoConfig := repo.New()
 		got := repoConfig.Github.Organization
 		want := "Testing"
 
-		if got != want && err == nil {
+		if got != want {
 			t.Errorf("got %v want %v", got, want)
 		}
 	})
@@ -40,7 +28,7 @@ func TestConfigRepository(t *testing.T) {
 		os.Setenv("ORGANIZATION", "Testing")
 		os.Setenv("REPOSITORY", "Testing")
 		var repo config.Repository
-		got, _ := repo.New()
+		got := repo.New()
 		want := &config.Repository{
 			Github: config.Github{
 				Token:        "Testing",
