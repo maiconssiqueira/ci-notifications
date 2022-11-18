@@ -2,7 +2,6 @@ package github
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 
 	"github.com/maiconssiqueira/ci-notifications/config"
@@ -25,9 +24,9 @@ func (n *notification) InitStatuses(sha string, context string, state string, de
 	}
 }
 
-func (n *notification) SendStatus(printLog bool, github *github) (string, error) {
+func (n *notification) SendStatus(github *github) (string, error) {
 	url := (github.Url + "/statuses/" + github.Sha)
-	raw, pretty, err := http.Post(github.Statuses, url, "application/json", github.Token)
+	raw, _, err := http.Post(github.Statuses, url, "application/json", github.Token)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -36,9 +35,8 @@ func (n *notification) SendStatus(printLog bool, github *github) (string, error)
 		log.Fatal(err)
 	}
 
-	if printLog {
-		fmt.Println(pretty)
+	if github.Statuses.ReturnStatuses.Message != "" {
+		return "Whoops, status of " + github.Url + " there was an error. " + github.Statuses.ReturnStatuses.Message, nil
 	}
-
 	return "Hooray, status of " + github.Url + " was updated at " + github.Statuses.ReturnStatuses.CreatedAt.String(), nil
 }
