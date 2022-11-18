@@ -17,12 +17,12 @@ import (
 //		SendStatus(printLog bool, github *Github) (string, error)
 //	}
 
-type Notification struct {
+type notification struct {
 	Command []string
 }
 
-func NewNotification() *Notification {
-	return &Notification{}
+func NewNotification() *notification {
+	return &notification{}
 }
 
 type status struct {
@@ -53,7 +53,7 @@ type comments struct {
 	Body     string `json:"body"`
 }
 
-type Github struct {
+type github struct {
 	Organization string `json:"organization"`
 	Repository   string `json:"repository"`
 	Url          string `json:"url"`
