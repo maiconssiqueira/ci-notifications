@@ -1,7 +1,6 @@
 package github
 
 import (
-	"encoding/json"
 	"log"
 
 	"github.com/maiconssiqueira/ci-notifications/config"
@@ -25,18 +24,20 @@ func (n *Notification) InitStatuses(sha string, context string, state string, de
 }
 
 func (n *Notification) SendStatus(github *github) (string, error) {
-	url := (github.Url + "/statuses/" + github.Sha)
-	raw, _, err := http.Post(github.Statuses, url, "application/json", github.Token)
+	var callback Callbacks = &github.Statuses
+
+	var post http.HttpHandlers = &http.Post{
+		Content:     github.Statuses,
+		ContentType: "application/json",
+		Token:       github.Token,
+		Url:         (github.Url + "/statuses/" + github.Sha),
+	}
+
+	raw, _, err := post.HandlerPost()
+
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if err := json.Unmarshal(raw, &github.Statuses.ReturnStatuses); err != nil {
-		log.Fatal(err)
-	}
-
-	if github.Statuses.ReturnStatuses.Message != "" {
-		return "Whoops, status of " + github.Url + " there was an error. " + github.Statuses.ReturnStatuses.Message, nil
-	}
-	return "Hooray, status of " + github.Url + " was updated at " + github.Statuses.ReturnStatuses.CreatedAt.String(), nil
+	return callback.Response(raw, github)
 }

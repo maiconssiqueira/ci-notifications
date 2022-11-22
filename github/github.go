@@ -1,22 +1,5 @@
 package github
 
-import (
-	"time"
-)
-
-//TODO
-//IMAGINEI QUE SABIA, MAS NAO SEI USAR INTERFACES
-// type Notifications interface {
-// 	InitComment(prNumber int, body string, repo config.Repository) *Github
-// 	SendComment(github *Github) (string, error)
-
-// 	InitRelease(tagName string, targetCommitish string, name string, body string, draft bool, prerelease bool, generateReleaseNotes bool, repo config.Repository) *Github
-// 	SetRelease(github *Github) (string, error)
-
-//		InitStatuses(sha string, context string, state string, description string, targetUrl string, repo config.Repository) *Github
-//		SendStatus(printLog bool, github *Github) (string, error)
-//	}
-
 type Notification struct {
 	Command []string
 }
@@ -26,19 +9,12 @@ func NewNotification() *Notification {
 }
 
 type status struct {
-	Context        string         `json:"context"`
-	State          string         `json:"state"`
-	Description    string         `json:"description"`
-	TargetUrl      string         `json:"target_url"`
-	ReturnStatuses returnStatuses `json:"return_status"`
+	Context     string `json:"context"`
+	State       string `json:"state"`
+	Description string `json:"description"`
+	TargetUrl   string `json:"target_url"`
+	Return      Return `json:"return_status"`
 }
-
-type returnStatuses struct {
-	Message   string    `json:"message"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-}
-
 type releases struct {
 	TagName              string `json:"tag_name"`
 	TargetCommitish      string `json:"target_commitish"`
@@ -47,13 +23,13 @@ type releases struct {
 	Draft                bool   `json:"draft"`
 	Prerelease           bool   `json:"prerelease"`
 	GenerateReleaseNotes bool   `json:"generate_release_notes"`
+	Return               Return `json:"return_status"`
 }
-
 type comments struct {
 	PrNumber int    `json:"prNumber"`
 	Body     string `json:"body"`
+	Return   Return `json:"return_status"`
 }
-
 type github struct {
 	Organization string `json:"organization"`
 	Repository   string `json:"repository"`

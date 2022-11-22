@@ -11,7 +11,22 @@ import (
 	"github.com/maiconssiqueira/ci-notifications/internal/output"
 )
 
-func httpPost(payload []byte, url string, contentType string, token string) []byte {
+type HttpHandlers interface {
+	HandlerPost() (raw []byte, pretty string, err error)
+}
+
+type Methods struct {
+	Post
+}
+
+type Post struct {
+	Content     any
+	Url         string
+	ContentType string
+	Token       string
+}
+
+func post(payload []byte, url string, contentType string, token string) []byte {
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(payload))
 	if err != nil {
 		log.Fatal(err)
@@ -33,9 +48,9 @@ func httpPost(payload []byte, url string, contentType string, token string) []by
 	return data
 }
 
-func Post(content any, url string, contentType string, token string) (raw []byte, pretty string, err error) {
-	payload, _ := json.Marshal(content)
-	res := httpPost(payload, url, contentType, token)
+func (p *Post) HandlerPost() (raw []byte, pretty string, err error) {
+	payload, _ := json.Marshal(p.Content)
+	res := post(payload, p.Url, p.ContentType, p.Token)
 	resPretty, _ := output.PrettyJson(res)
 	return res, resPretty.String(), nil
 }

@@ -1,6 +1,7 @@
 package github
 
 import (
+	"log"
 	"strconv"
 
 	"github.com/maiconssiqueira/ci-notifications/config"
@@ -21,7 +22,20 @@ func (n *Notification) InitComment(prNumber int, body string, repo config.Reposi
 }
 
 func (n *Notification) SendComment(github *github) (string, error) {
-	url := (github.Url + "/issues/" + strconv.Itoa(github.Comments.PrNumber) + "/comments")
-	_, pretty, _ := http.Post(github.Comments, url, "", github.Token)
-	return pretty, nil
+	var callback Callbacks = &github.Comments
+
+	var post http.HttpHandlers = &http.Post{
+		Content:     github.Comments,
+		ContentType: "",
+		Token:       github.Token,
+		Url:         (github.Url + "/issues/" + strconv.Itoa(github.Comments.PrNumber) + "/comments"),
+	}
+
+	raw, _, err := post.HandlerPost()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return callback.Response(raw, github)
 }

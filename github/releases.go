@@ -1,6 +1,8 @@
 package github
 
 import (
+	"log"
+
 	"github.com/maiconssiqueira/ci-notifications/config"
 	"github.com/maiconssiqueira/ci-notifications/internal/http"
 )
@@ -24,7 +26,20 @@ func (n *Notification) InitRelease(tagName string, targetCommitish string, name 
 }
 
 func (n *Notification) SetRelease(github *github) (string, error) {
-	url := (github.Url + "/releases")
-	_, pretty, _ := http.Post(github.Releases, url, "application/json", github.Token)
-	return pretty, nil
+	var callback Callbacks = &github.Releases
+
+	var post http.HttpHandlers = &http.Post{
+		Content:     github.Releases,
+		ContentType: "application/json",
+		Token:       github.Token,
+		Url:         (github.Url + "/releases"),
+	}
+
+	raw, _, err := post.HandlerPost()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return callback.Response(raw, github)
 }
