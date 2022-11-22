@@ -11,21 +11,6 @@ import (
 	"github.com/maiconssiqueira/ci-notifications/internal/output"
 )
 
-type HttpHandlers interface {
-	HandlerPost() (raw []byte, pretty string, err error)
-}
-
-type Methods struct {
-	Post
-}
-
-type Post struct {
-	Content     any
-	Url         string
-	ContentType string
-	Token       string
-}
-
 func post(payload []byte, url string, contentType string, token string) []byte {
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer(payload))
 	if err != nil {
