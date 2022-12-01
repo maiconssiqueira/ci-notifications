@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/maiconssiqueira/ci-notifications/github"
 	"github.com/spf13/cobra"
 )
 
@@ -15,7 +16,9 @@ var commentsCmd = &cobra.Command{
 	Use:   "comments",
 	Short: "The  comments supports send comment on pull requests",
 	RunE: func(_ *cobra.Command, _ []string) error {
-		res, err := notify.SendComment(notify.InitComment(pullrequest, message, *repoConf))
+		var comments = &github.Github{}
+
+		res, err := notify.SendComment(notify.InitComment(pullrequest, message, *repoConf), &comments.Comments)
 		if err != nil {
 			return err
 		}

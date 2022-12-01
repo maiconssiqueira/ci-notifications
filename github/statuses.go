@@ -7,8 +7,8 @@ import (
 	"github.com/maiconssiqueira/ci-notifications/internal/http"
 )
 
-func (n *Notification) InitStatuses(sha string, context string, state string, description string, targetUrl string, repo config.Repository) *github {
-	return &github{
+func (n *Notification) InitStatuses(sha string, context string, state string, description string, targetUrl string, repo config.Repository) *Github {
+	return &Github{
 		Organization: repo.Github.Organization,
 		Repository:   repo.Github.Repository,
 		Token:        repo.Github.Token,
@@ -23,9 +23,7 @@ func (n *Notification) InitStatuses(sha string, context string, state string, de
 	}
 }
 
-func (n *Notification) SendStatus(github *github) (string, error) {
-	var callback Callbacks = &github.Statuses
-
+func (n *Notification) SendStatus(github *Github, callback Callbacks) (string, error) {
 	var post http.HttpHandlers = &http.Post{
 		Content:     github.Statuses,
 		ContentType: "application/json",
@@ -34,7 +32,6 @@ func (n *Notification) SendStatus(github *github) (string, error) {
 	}
 
 	raw, _, err := post.HandlerPost()
-
 	if err != nil {
 		log.Fatal(err)
 	}

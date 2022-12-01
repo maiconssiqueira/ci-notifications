@@ -7,7 +7,7 @@ import (
 )
 
 type Callbacks interface {
-	Response(raw []byte, github *github) (string, error)
+	Response(raw []byte, github *Github) (string, error)
 }
 
 type Return struct {
@@ -16,7 +16,7 @@ type Return struct {
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
-func (g *status) Response(raw []byte, github *github) (string, error) {
+func (g *status) Response(raw []byte, github *Github) (string, error) {
 	if err := json.Unmarshal(raw, &g.Return); err != nil {
 		log.Fatal(err)
 	}
@@ -26,7 +26,7 @@ func (g *status) Response(raw []byte, github *github) (string, error) {
 	return "Hooray, status of " + github.Url + " was updated at " + g.Return.CreatedAt.String(), nil
 }
 
-func (g *comments) Response(raw []byte, github *github) (string, error) {
+func (g *comments) Response(raw []byte, github *Github) (string, error) {
 	if err := json.Unmarshal(raw, &g.Return); err != nil {
 		log.Fatal(err)
 	}
@@ -36,7 +36,7 @@ func (g *comments) Response(raw []byte, github *github) (string, error) {
 	return "Hooray, the comment for " + github.Url + " was sent at " + g.Return.CreatedAt.String(), nil
 }
 
-func (g *releases) Response(raw []byte, github *github) (string, error) {
+func (g *releases) Response(raw []byte, github *Github) (string, error) {
 	if err := json.Unmarshal(raw, &g.Return); err != nil {
 		log.Fatal(err)
 	}

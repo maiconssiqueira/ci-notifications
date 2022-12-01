@@ -7,8 +7,8 @@ import (
 	"github.com/maiconssiqueira/ci-notifications/internal/http"
 )
 
-func (n *Notification) InitRelease(tagName string, targetCommitish string, name string, body string, draft bool, prerelease bool, generateReleaseNotes bool, repo config.Repository) *github {
-	return &github{
+func (n *Notification) InitRelease(tagName string, targetCommitish string, name string, body string, draft bool, prerelease bool, generateReleaseNotes bool, repo config.Repository) *Github {
+	return &Github{
 		Organization: repo.Github.Organization,
 		Repository:   repo.Github.Repository,
 		Token:        repo.Github.Token,
@@ -25,9 +25,7 @@ func (n *Notification) InitRelease(tagName string, targetCommitish string, name 
 	}
 }
 
-func (n *Notification) SetRelease(github *github) (string, error) {
-	var callback Callbacks = &github.Releases
-
+func (n *Notification) SetRelease(github *Github, callback Callbacks) (string, error) {
 	var post http.HttpHandlers = &http.Post{
 		Content:     github.Releases,
 		ContentType: "application/json",
@@ -36,7 +34,6 @@ func (n *Notification) SetRelease(github *github) (string, error) {
 	}
 
 	raw, _, err := post.HandlerPost()
-
 	if err != nil {
 		log.Fatal(err)
 	}

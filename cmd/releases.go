@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/maiconssiqueira/ci-notifications/github"
 	"github.com/maiconssiqueira/ci-notifications/internal/output"
 	"github.com/spf13/cobra"
 )
@@ -21,11 +22,13 @@ var releasesCmd = &cobra.Command{
 	Use:   "releases",
 	Short: "Set a new release to a Github repository",
 	RunE: func(_ *cobra.Command, _ []string) error {
+		var releases = &github.Github{}
+
 		err := output.CheckSemanticVersioning(tagName)
 		if err != nil {
 			return err
 		}
-		res, err := notify.SetRelease(notify.InitRelease(tagName, targetCommitish, name, body, draft, prerelease, generateReleaseNotes, *repoConf))
+		res, err := notify.SetRelease(notify.InitRelease(tagName, targetCommitish, name, body, draft, prerelease, generateReleaseNotes, *repoConf), &releases.Releases)
 		if err != nil {
 			return err
 		}

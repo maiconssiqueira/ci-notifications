@@ -5,6 +5,7 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/maiconssiqueira/ci-notifications/github"
 	"github.com/maiconssiqueira/ci-notifications/internal/output"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -27,7 +28,12 @@ var statusesCmd = &cobra.Command{
 			States   map[string]bool `mapstructure:"states"`
 			Contexts map[string]bool `mapstructure:"contexts"`
 		}
-		var conf Config
+
+		var (
+			conf     Config
+			statuses = &github.Github{}
+		)
+
 		viper.Unmarshal(&conf)
 
 		if !conf.States[state] || !conf.Contexts[context] {
@@ -43,7 +49,7 @@ var statusesCmd = &cobra.Command{
 			return fmt.Errorf(`please, check targetUrl. Target url must use http(s) scheme`)
 		}
 
-		res, err := notify.SendStatus(notify.InitStatuses(sha, context, state, description, targetUrl, *repoConf))
+		res, err := notify.SendStatus(notify.InitStatuses(sha, context, state, description, targetUrl, *repoConf), &statuses.Statuses)
 		if err != nil {
 			return err
 		}

@@ -30,7 +30,7 @@ type comments struct {
 	Body     string `json:"body"`
 	Return   Return `json:"return_status"`
 }
-type github struct {
+type Github struct {
 	Organization string `json:"organization"`
 	Repository   string `json:"repository"`
 	Url          string `json:"url"`
