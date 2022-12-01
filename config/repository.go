@@ -1,6 +1,7 @@
 package config
 
 import (
+	"log"
 	"os"
 
 	"github.com/maiconssiqueira/ci-notifications/internal/output"
@@ -20,6 +21,7 @@ type Github struct {
 func (r Repository) New() *Repository {
 	err := output.CheckVariables("GHTOKEN", "ORGANIZATION", "REPOSITORY")
 	if err != nil {
+		log.Fatal(err)
 		return nil
 	}
 	return &Repository{
