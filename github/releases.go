@@ -25,14 +25,7 @@ func (n *Notification) InitRelease(tagName string, targetCommitish string, name 
 	}
 }
 
-func (n *Notification) SetRelease(github *Github, callback Callbacks) (string, error) {
-	var post http.HttpHandlers = &http.Post{
-		Content:     github.Releases,
-		ContentType: "application/json",
-		Token:       github.Token,
-		Url:         (github.Url + "/releases"),
-	}
-
+func (n *Notification) SetRelease(github *Github, callback Callbacks, post http.HttpHandlers) (string, error) {
 	raw, _, err := post.HandlerPost()
 	if err != nil {
 		log.Fatal(err)

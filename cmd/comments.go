@@ -2,8 +2,9 @@ package cmd
 
 import (
 	"fmt"
+	"strconv"
 
-	"github.com/maiconssiqueira/ci-notifications/github"
+	"github.com/maiconssiqueira/ci-notifications/internal/http"
 	"github.com/spf13/cobra"
 )
 
@@ -16,9 +17,16 @@ var commentsCmd = &cobra.Command{
 	Use:   "comments",
 	Short: "The  comments supports send comment on pull requests",
 	RunE: func(_ *cobra.Command, _ []string) error {
-		var comments = &github.Github{}
+		initComment := notify.InitComment(pullrequest, message, *repoConf)
 
-		res, err := notify.SendComment(notify.InitComment(pullrequest, message, *repoConf), &comments.Comments)
+		var post http.HttpHandlers = &http.Post{
+			Content:     initComment.Comments,
+			ContentType: "",
+			Token:       initComment.Token,
+			Url:         (initComment.Url + "/issues/" + strconv.Itoa(initComment.Comments.PrNumber) + "/comments"),
+		}
+
+		res, err := notify.SendComment(initComment, &initComment.Comments, post)
 		if err != nil {
 			return err
 		}

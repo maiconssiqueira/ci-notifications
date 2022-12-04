@@ -23,14 +23,7 @@ func (n *Notification) InitStatuses(sha string, context string, state string, de
 	}
 }
 
-func (n *Notification) SendStatus(github *Github, callback Callbacks) (string, error) {
-	var post http.HttpHandlers = &http.Post{
-		Content:     github.Statuses,
-		ContentType: "application/json",
-		Token:       github.Token,
-		Url:         (github.Url + "/statuses/" + github.Sha),
-	}
-
+func (n *Notification) SendStatus(github *Github, callback Callbacks, post http.HttpHandlers) (string, error) {
 	raw, _, err := post.HandlerPost()
 	if err != nil {
 		log.Fatal(err)
