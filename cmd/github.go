@@ -20,4 +20,5 @@ func init() {
 	githubCmd.AddCommand(releasesCmd)
 	githubCmd.AddCommand(statusesCmd)
 	githubCmd.AddCommand(commentsCmd)
+	githubCmd.AddCommand(markupCmd)
 }

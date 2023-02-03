@@ -1,14 +1,11 @@
 package http
 
-type HttpHandlers interface {
-	HandlerPost() (raw []byte, pretty string, err error)
+type Handler interface {
+	Request() ([]byte, error)
 }
 
-type Methods struct {
-	Post
-}
-
-type Post struct {
+type Contains struct {
+	Method      string
 	Content     any
 	Url         string
 	ContentType string

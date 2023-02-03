@@ -15,6 +15,15 @@ type status struct {
 	TargetUrl   string `json:"target_url"`
 	Return      Return `json:"return_status"`
 }
+
+type labels struct {
+	Labels []string `json:"labels"`
+}
+type markup struct {
+	Issue_number int            `json:"issue_number"`
+	Markups      labels         `json:"labels"`
+	Return       []ReturnMarkup `json:"return_status"`
+}
 type releases struct {
 	TagName              string `json:"tag_name"`
 	TargetCommitish      string `json:"target_commitish"`
@@ -39,4 +48,5 @@ type Github struct {
 	Statuses     status   `json:"status"`
 	Releases     releases `json:"releases"`
 	Comments     comments `json:"comments"`
+	Markup       markup   `json:"markup"`
 }

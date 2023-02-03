@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 	"regexp"
 	"strings"
 
@@ -33,7 +34,8 @@ var statusesCmd = &cobra.Command{
 
 		var (
 			conf Config
-			post http.HttpHandlers = &http.Post{
+			post http.Handler = &http.Contains{
+				Method:      "POST",
 				Content:     initStatuses.Statuses,
 				ContentType: "application/json",
 				Token:       initStatuses.Token,
@@ -60,7 +62,7 @@ var statusesCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		fmt.Println(res)
+		log.Println(res)
 		return nil
 	},
 }

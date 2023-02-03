@@ -11,9 +11,21 @@ type Callbacks interface {
 }
 
 type Return struct {
-	Message   string    `json:"message"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	Message     string    `json:"message"`
+	CreatedAt   time.Time `json:"created_at"`
+	UpdatedAt   time.Time `json:"updated_at"`
+	Name        string    `json:"name"`
+	Description string    `json:"description"`
+}
+
+type ReturnMarkup struct {
+	ID          int64  `json:"id"`
+	NodeID      string `json:"node_id"`
+	URL         string `json:"url"`
+	Name        string `json:"name"`
+	Color       string `json:"color"`
+	Default     bool   `json:"default"`
+	Description string `json:"description"`
 }
 
 func (g *status) Response(raw []byte, github *Github) (string, error) {
@@ -24,6 +36,13 @@ func (g *status) Response(raw []byte, github *Github) (string, error) {
 		return "Whoops, status of " + github.Url + " there was an error. " + g.Return.Message, nil
 	}
 	return "Hooray, status of " + github.Url + " was updated at " + g.Return.CreatedAt.String(), nil
+}
+
+func (g *markup) Response(raw []byte, github *Github) (string, error) {
+	if err := json.Unmarshal(raw, &g.Return); err != nil {
+		log.Fatal(err)
+	}
+	return "Hooray, the " + github.Url + " was marked up", nil
 }
 
 func (g *comments) Response(raw []byte, github *Github) (string, error) {

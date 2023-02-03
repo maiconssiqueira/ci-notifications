@@ -23,8 +23,8 @@ func (n *Notification) InitStatuses(sha string, context string, state string, de
 	}
 }
 
-func (n *Notification) SendStatus(github *Github, callback Callbacks, post http.HttpHandlers) (string, error) {
-	raw, _, err := post.HandlerPost()
+func (n *Notification) SendStatus(github *Github, callback Callbacks, post http.Handler) (string, error) {
+	raw, err := post.Request()
 	if err != nil {
 		log.Fatal(err)
 	}

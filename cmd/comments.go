@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"fmt"
+	"log"
 	"strconv"
 
 	"github.com/maiconssiqueira/ci-notifications/internal/http"
@@ -19,7 +19,8 @@ var commentsCmd = &cobra.Command{
 	RunE: func(_ *cobra.Command, _ []string) error {
 		initComment := notify.InitComment(pullrequest, message, *repoConf)
 
-		var post http.HttpHandlers = &http.Post{
+		var post http.Handler = &http.Contains{
+			Method:      "POST",
 			Content:     initComment.Comments,
 			ContentType: "",
 			Token:       initComment.Token,
@@ -30,7 +31,7 @@ var commentsCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		fmt.Println(res)
+		log.Println(res)
 		return nil
 	},
 }

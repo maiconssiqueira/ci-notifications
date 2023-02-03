@@ -25,8 +25,8 @@ func (n *Notification) InitRelease(tagName string, targetCommitish string, name 
 	}
 }
 
-func (n *Notification) SetRelease(github *Github, callback Callbacks, post http.HttpHandlers) (string, error) {
-	raw, _, err := post.HandlerPost()
+func (n *Notification) SetRelease(github *Github, callback Callbacks, post http.Handler) (string, error) {
+	raw, err := post.Request()
 	if err != nil {
 		log.Fatal(err)
 	}

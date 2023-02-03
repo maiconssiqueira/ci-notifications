@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/maiconssiqueira/ci-notifications/internal/http"
 	"github.com/maiconssiqueira/ci-notifications/internal/output"
@@ -24,7 +24,8 @@ var releasesCmd = &cobra.Command{
 	RunE: func(_ *cobra.Command, _ []string) error {
 		InitRelease := notify.InitRelease(tagName, targetCommitish, name, body, draft, prerelease, generateReleaseNotes, *repoConf)
 
-		var post http.HttpHandlers = &http.Post{
+		var post http.Handler = &http.Contains{
+			Method:      "POST",
 			Content:     InitRelease.Releases,
 			ContentType: "application/json",
 			Token:       InitRelease.Token,
@@ -39,7 +40,7 @@ var releasesCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		fmt.Println(res)
+		log.Println(res)
 		return nil
 	},
 }

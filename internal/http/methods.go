@@ -7,12 +7,10 @@ import (
 	"log"
 	"net/http"
 	"net/http/cookiejar"
-
-	"github.com/maiconssiqueira/ci-notifications/internal/output"
 )
 
-func post(payload []byte, url string, contentType string, token string) []byte {
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer(payload))
+func HttpHandler(method string, payload []byte, url string, contentType string, token string) []byte {
+	req, err := http.NewRequest(method, url, bytes.NewBuffer(payload))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -33,9 +31,8 @@ func post(payload []byte, url string, contentType string, token string) []byte {
 	return data
 }
 
-func (p *Post) HandlerPost() (raw []byte, pretty string, err error) {
-	payload, _ := json.Marshal(p.Content)
-	res := post(payload, p.Url, p.ContentType, p.Token)
-	resPretty, _ := output.PrettyJson(res)
-	return res, resPretty.String(), nil
+func (h *Contains) Request() ([]byte, error) {
+	payload, _ := json.Marshal(h.Content)
+	res := HttpHandler(h.Method, payload, h.Url, h.ContentType, h.Token)
+	return res, nil
 }
