@@ -38,6 +38,22 @@ func CheckVariables(variables ...string) error {
 	return nil
 }
 
+func CompareSlices(original []string, compares []string) []string {
+	m := make(map[string]bool)
+	for _, v := range original {
+		m[v] = true
+	}
+
+	result := []string{}
+	for _, v := range compares {
+		if !m[v] {
+			result = append(result, v)
+		}
+	}
+
+	return result
+}
+
 func CheckSemanticVersioning(semver string) error {
 	valid, _ := regexp.MatchString(regexRelease, semver)
 	if !valid {

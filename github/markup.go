@@ -7,6 +7,7 @@ import (
 
 	"github.com/maiconssiqueira/ci-notifications/config"
 	"github.com/maiconssiqueira/ci-notifications/internal/http"
+	"github.com/maiconssiqueira/ci-notifications/internal/output"
 )
 
 func (n *Notification) InitMarkup(issue_number int, label []string, repo config.Repository) *Github {
@@ -36,17 +37,16 @@ func (n *Notification) SendMarkup(github *Github, callback Callbacks, post http.
 	)
 
 	json.Unmarshal(raw, &response)
-
 	for _, existent := range response {
-		for _, propose := range github.Markup.Markups.Labels {
-			if existent.Name == propose {
-				found = append(found, propose)
-			}
-		}
+		found = append(found, existent.Name)
 	}
 
-	if len(found) > 0 {
+	github.Markup.Markups.Labels = output.CompareSlices(found, github.Markup.Markups.Labels)
+
+	if len(found) > 0 && len(github.Markup.Markups.Labels) == 0 {
 		log.Fatalf("whoops, These label(s) %v has already been marked up", strings.Join(found, ", "))
+	} else if len(found) > 0 && len(github.Markup.Markups.Labels) > 0 {
+		log.Printf("whoops, These label(s) %v has already been marked up", strings.Join(found, ", "))
 	}
 
 	raw, err = post.Request()
