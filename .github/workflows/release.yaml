@@ -10,7 +10,7 @@ jobs:
     - name: compile and release
       uses: ngs/go-release.action@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GHTOKEN }}
         GOARCH: "386"
         GOOS: linux
         EXTRA_FILES: "LICENSE"
@@ -23,7 +23,7 @@ jobs:
     - name: compile and release
       uses: ngs/go-release.action@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GHTOKEN }}
         GOARCH: amd64
         GOOS: linux
         EXTRA_FILES: "LICENSE"
@@ -36,7 +36,7 @@ jobs:
     - name: compile and release
       uses: ngs/go-release.action@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GHTOKEN }}
         GOARCH: "arm"
         GOOS: linux
         EXTRA_FILES: "LICENSE"
@@ -49,7 +49,7 @@ jobs:
     - name: compile and release
       uses: ngs/go-release.action@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GHTOKEN }}
         GOARCH: arm64
         GOOS: linux
         EXTRA_FILES: "LICENSE"
@@ -62,7 +62,7 @@ jobs:
     - name: compile and release
       uses: ngs/go-release.action@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GHTOKEN }}
         GOARCH: amd64
         GOOS: darwin
         EXTRA_FILES: "LICENSE"
@@ -74,7 +74,7 @@ jobs:
     - name: compile and release
       uses: ngs/go-release.action@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GHTOKEN }}
         GOARCH: "386"
         GOOS: windows
         EXTRA_FILES: "LICENSE"
@@ -87,7 +87,7 @@ jobs:
     - name: compile and release
       uses: ngs/go-release.action@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GHTOKEN }}
         GOARCH: amd64
         GOOS: windows
         EXTRA_FILES: "LICENSE"
