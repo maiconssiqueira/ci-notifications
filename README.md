@@ -1,5 +1,6 @@
 # *Notifications CLI*
 [![.github/workflows/release.yaml](https://github.com/maiconssiqueira/notifications-cli/actions/workflows/release.yaml/badge.svg)](https://github.com/maiconssiqueira/notifications-cli/actions/workflows/release.yaml)
+[![Go](https://github.com/maiconssiqueira/notifications-cli/actions/workflows/main.yml/badge.svg)](https://github.com/maiconssiqueira/notifications-cli/actions/workflows/main.yml)
 
 [Feedback Notes](NOTES.md)
 
