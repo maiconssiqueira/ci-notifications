@@ -2,6 +2,7 @@
 
 [![go release](https://github.com/maiconssiqueira/notifications-cli/actions/workflows/release.yaml/badge.svg)](https://github.com/maiconssiqueira/notifications-cli/actions/workflows/release.yaml)
 [![go builds](https://github.com/maiconssiqueira/notifications-cli/actions/workflows/main.yml/badge.svg)](https://github.com/maiconssiqueira/notifications-cli/actions/workflows/main.yml)
+[![image builds](https://github.com/maiconssiqueira/notifications-cli/actions/workflows/builds.yaml/badge.svg)](https://github.com/maiconssiqueira/notifications-cli/actions/workflows/builds.yaml)
 
 [Feedback Notes](NOTES.md)
 
