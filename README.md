@@ -166,18 +166,18 @@ notifications-cli github markup \
 ---
 
 - ***Run wiht Docker Image:***
-  - ```bash
-       docker pull maiconsiqueira/notifications-cli
-    ```
-  - ```bash
-       export ORGANIZATION="MY-REPO-OWNER"
-       export REPOSITORY="TARGET-REPOSITORY"
-       export GHTOKEN="ghp_ahjh82uehfe38uh38h38hf83fh83"
-    ```
-  - ```bash
-      docker run --env REPOSITORY=$REPOSITORY \
-      --env ORGANIZATION=$ORGANIZATION \
-      --env GHTOKEN=$GHTOKEN github comments \
-      --pullrequest 16 \
-      --message "Hooray"
-    ```
+```bash
+docker pull maiconsiqueira/notifications-cli
+```
+```bash
+export ORGANIZATION="MY-REPO-OWNER"
+export REPOSITORY="TARGET-REPOSITORY"
+export GHTOKEN="ghp_ahjh82uehfe38uh38h38hf83fh83"
+```
+```bash
+docker run --env REPOSITORY=$REPOSITORY \
+  --env ORGANIZATION=$ORGANIZATION \
+  --env GHTOKEN=$GHTOKEN github comments \
+  --pullrequest 16 \
+  --message "Hooray"
+```
