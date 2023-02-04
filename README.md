@@ -26,11 +26,6 @@ Continuous Delivery Notifications CLI was planned to make it easier to send noti
 - Markup:
   - The names of the labels to set for the issue. The labels you set replace any existing labels. Alternatively, you can pass a single label as a string or an array of labels directly.
 
-### ToDo
-
-* [ ] Send messages to Discord and Telegram
-- [ ] Tests
-
 ### How-to use
 
 First of all, you need to declare the following variables.
@@ -57,15 +52,7 @@ notifications-cli github statuses \
   --description "This application has been deployed" \
   --targetUrl http://jenkins.mycompany.io
 ```
-
-<div>
-  <center>
-    <img src="img/status.png" alt="drawing" width="600"/>
-  </center>
-</div>
-
 ---
-
 #### Pull Request comments
 
 Using from the command line:
@@ -91,13 +78,6 @@ notifications-cli github comments \
   <br/> :warning: :white_check_mark: :red_circle: :+1: :-1:
   <br/> <details> <summary>Click here</summary> :boom:Kabum! </details>"
 ```
-
-<div>
-  <center>
-    <img src="img/comment-markdown.png" alt="drawing" width="600"/>
-  </center>
-</div>
-
 ---
 
 #### Set branch release
@@ -139,33 +119,21 @@ notifications-cli github markup \
   --labels=available,not-merge
 ```
 ---
-#### Running:
 
-**Last version:** 0.0.9
+#### **Download last version:**
 
-  - *Darwin:*
-    - amd64
-  - *Linux:*
-    - amd64
-    - arm64
-    - 386
-  - *Windows:*
-    - amd64
-    - 386
+| **O.S** | **Arch** | **Version** | **Link**                                                                                                                         |
+|---------|----------|-------------|----------------------------------------------------------------------------------------------------------------------------------|
+| Darwin  | AMD64    | 0.0.9       | [link](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-darwin-amd64.tar.gz) |
+| Linux   | AMD64    | 0.0.9       | [link](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-linux-amd64.tar.gz)  |
+| Linux   | ARM64    | 0.0.9       | [link](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-linux-arm64.tar.gz)  |
+| Linux   | 386      | 0.0.9       | [link](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-linux-386.tar.gz)    |
+| Windows | 386      | 0.0.9       | [link](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-windows-386.zip)     |
+| Windows | AMD64    | 0.0.9       | [link](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-windows-amd64.zip)   |
 
 ---
 
-- ***CLI executable links:***
-  - [OS: MacOS, Arch: Amd64, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-darwin-amd64.tar.gz)
-  - [OS: Linux, Arch: Amd64, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-linux-amd64.tar.gz)
-  - [OS: Linux, Arch: Arm64, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-linux-arm64.tar.gz)
-  - [OS: Linux, Arch: 386, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-linux-386.tar.gz)
-  - [OS: Windows, Arch: 386, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-windows-386.zip)
-  - [OS: Windows, Arch: amd64, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-windows-amd64.zip)
-
----
-
-- ***Run wiht Docker Image:***
+- ***Run with container:***
 ```bash
 docker pull maiconsiqueira/notifications-cli
 ```
