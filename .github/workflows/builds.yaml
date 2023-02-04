@@ -1,4 +1,4 @@
-name: iamge builds
+name: image builds
 on:
   release:
     types: [created]
