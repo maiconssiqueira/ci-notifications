@@ -139,29 +139,25 @@ notifications-cli github markup \
   --labels=available,not-merge
 ```
 
-#### Download
+#### Downloads:
 
-Last version: 0.0.9
+***Last version:*** 0.0.9
 
-Availables:
-  - **Darwin**
+  - ***Darwin:***
     - amd64
-  - **Linux**
+  - ***Linux:***
     - amd64
     - arm64
     - 386
-  - **Windows**
+  - ***Windows:***
     - amd64
     - 386
 
-[OS: MacOS, Arch: Amd64, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-darwin-amd64.tar.gz)
 
-[OS: Linux, Arch: Amd64, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-linux-amd64.tar.gz)
-
-[OS: Linux, Arch: Arm64, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-linux-arm64.tar.gz)
-
-[OS: Linux, Arch: 386, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-linux-386.tar.gz)
-
-[OS: Windows, Arch: 386, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-windows-386.tar.gz)
-
-[OS: Windows, Arch: amd64, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-windows-amd64.tar.gz)
+- ***Links:***
+  - [OS: MacOS, Arch: Amd64, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-darwin-amd64.tar.gz)
+  - [OS: Linux, Arch: Amd64, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-linux-amd64.tar.gz)
+  - [OS: Linux, Arch: Arm64, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-linux-arm64.tar.gz)
+  - [OS: Linux, Arch: 386, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-linux-386.tar.gz)
+  - [OS: Windows, Arch: 386, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-windows-386.tar.gz)
+  - [OS: Windows, Arch: amd64, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-windows-amd64.tar.gz)
