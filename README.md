@@ -138,8 +138,8 @@ notifications-cli github markup \
   --pullrequest=18 \
   --labels=available,not-merge
 ```
-
-#### Downloads:
+---
+#### Running:
 
 **Last version:** 0.0.9
 
@@ -153,11 +153,31 @@ notifications-cli github markup \
     - amd64
     - 386
 
+---
 
-- ***Links:***
+- ***CLI executable links:***
   - [OS: MacOS, Arch: Amd64, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-darwin-amd64.tar.gz)
   - [OS: Linux, Arch: Amd64, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-linux-amd64.tar.gz)
   - [OS: Linux, Arch: Arm64, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-linux-arm64.tar.gz)
   - [OS: Linux, Arch: 386, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-linux-386.tar.gz)
   - [OS: Windows, Arch: 386, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-windows-386.zip)
   - [OS: Windows, Arch: amd64, version: 0.0.9](https://github.com/maiconssiqueira/notifications-cli/releases/download/0.0.9/notifications-cli-0.0.9-windows-amd64.zip)
+
+---
+
+- ***Run wiht Docker Image:***
+  - ```bash
+       docker pull maiconsiqueira/notifications-cli
+    ```
+  - ```bash
+       export ORGANIZATION="MY-REPO-OWNER"
+       export REPOSITORY="TARGET-REPOSITORY"
+       export GHTOKEN="ghp_ahjh82uehfe38uh38h38hf83fh83"
+    ```
+  - ```bash
+      docker run --env REPOSITORY=$REPOSITORY \
+      --env ORGANIZATION=$ORGANIZATION \
+      --env GHTOKEN=$GHTOKEN github comments \
+      --pullrequest 16 \
+      --message "Hooray"
+    ```
