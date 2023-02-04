@@ -141,15 +141,15 @@ notifications-cli github markup \
 
 #### Downloads:
 
-***Last version:*** 0.0.9
+**Last version:** 0.0.9
 
-  - ***Darwin:***
+  - *Darwin:*
     - amd64
-  - ***Linux:***
+  - *Linux:*
     - amd64
     - arm64
     - 386
-  - ***Windows:***
+  - *Windows:*
     - amd64
     - 386
 
