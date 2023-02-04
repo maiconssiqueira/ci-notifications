@@ -8,16 +8,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var (
-	tagName              string
-	targetCommitish      string
-	name                 string
-	body                 string
-	draft                bool
-	prerelease           bool
-	generateReleaseNotes bool
-)
-
 var releasesCmd = &cobra.Command{
 	Use:   "releases",
 	Short: "Set a new release to a Github repository",

@@ -8,10 +8,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var (
-	labels []string
-)
-
 var markupCmd = &cobra.Command{
 	Use:   "markup",
 	Short: "Set labels to PR",

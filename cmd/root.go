@@ -13,10 +13,37 @@ import (
 )
 
 var (
+	tagName              string
+	targetCommitish      string
+	name                 string
+	body                 string
+	draft                bool
+	prerelease           bool
+	generateReleaseNotes bool
+)
+
+var (
+	sha         string
+	context     string
+	state       string
+	description string
+	targetUrl   string
+)
+
+var (
 	cfgFile  string
 	repo     config.Repository
 	notify   = github.NewNotification()
 	repoConf = repo.New()
+)
+
+var (
+	pullrequest int
+	message     string
+)
+
+var (
+	labels []string
 )
 
 var rootCmd = &cobra.Command{

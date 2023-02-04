@@ -12,14 +12,6 @@ import (
 	"github.com/spf13/viper"
 )
 
-var (
-	sha         string
-	context     string
-	state       string
-	description string
-	targetUrl   string
-)
-
 var statusesCmd = &cobra.Command{
 	Use:   "statuses",
 	Short: "Send updates to Github Checks",
