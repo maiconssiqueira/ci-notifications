@@ -1,8 +1,6 @@
 package github
 
 import (
-	"log"
-
 	"github.com/maiconssiqueira/ci-notifications/config"
 	"github.com/maiconssiqueira/ci-notifications/internal/http"
 )

@@ -2,7 +2,6 @@ package github
 
 import (
 	"encoding/json"
-	"log"
 	"strings"
 
 	"github.com/maiconssiqueira/ci-notifications/config"
@@ -46,7 +45,7 @@ func (n *Notification) SendMarkup(github *Github, callback Callbacks, post http.
 	if len(found) > 0 && len(github.Markup.Markups.Labels) == 0 {
 		log.Fatalf("whoops, These label(s) %v has already been marked up", strings.Join(found, ", "))
 	} else if len(found) > 0 && len(github.Markup.Markups.Labels) > 0 {
-		log.Printf("whoops, These label(s) %v has already been marked up", strings.Join(found, ", "))
+		log.Infof("whoops, These label(s) %v has already been marked up", strings.Join(found, ", "))
 	}
 
 	raw, err = post.Request()

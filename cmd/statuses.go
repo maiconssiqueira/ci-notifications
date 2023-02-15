@@ -1,8 +1,6 @@
 package cmd
 
 import (
-	"fmt"
-	"log"
 	"regexp"
 	"strings"
 
@@ -16,7 +14,7 @@ var statusesCmd = &cobra.Command{
 	Use:   "statuses",
 	Short: "Send updates to Github Checks",
 	Long:  `Status checks allow you to send data related to tests or routines submitted to the repository via CI/CD pipelines.`,
-	RunE: func(_ *cobra.Command, _ []string) error {
+	Run: func(_ *cobra.Command, _ []string) {
 		type Config struct {
 			States   map[string]bool `mapstructure:"states"`
 			Contexts map[string]bool `mapstructure:"contexts"`
@@ -38,24 +36,23 @@ var statusesCmd = &cobra.Command{
 		viper.Unmarshal(&conf)
 
 		if !conf.States[state] || !conf.Contexts[context] {
-			return fmt.Errorf(`this state or context reported [%v, %v] is invalid, it can be one of the following:
+			log.Fatal(`this state or context reported [%v, %v] is invalid, it can be one of the following:
         available states:   [%v]
         available contexts: [%v]`, state, context, strings.Join(output.KeysByValue(conf.States, true), ", "), strings.Join(output.KeysByValue(conf.Contexts, true), ", "))
 		}
 		if len(sha) != 40 {
-			return fmt.Errorf(`please, check commit head SHA. SHA must be a 40 character SHA1`)
+			log.Fatal(`please, check commit head SHA. SHA must be a 40 character SHA1`)
 		}
 		valid, _ := regexp.MatchString("^https://|http://", targetUrl)
 		if !valid {
-			return fmt.Errorf(`please, check targetUrl. Target url must use http(s) scheme`)
+			log.Fatal(`please, check targetUrl. Target url must use http(s) scheme`)
 		}
 
 		res, err := notify.SendStatus(initStatuses, &initStatuses.Statuses, post)
 		if err != nil {
-			return err
+			log.Fatal(err)
 		}
-		log.Println(res)
-		return nil
+		log.Info(res)
 	},
 }
 

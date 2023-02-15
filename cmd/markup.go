@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"log"
 	"strconv"
 
 	"github.com/maiconssiqueira/ci-notifications/internal/http"
@@ -12,7 +11,7 @@ var markupCmd = &cobra.Command{
 	Use:   "markup",
 	Short: "Set labels to PR",
 	Long:  `Markup allow you to mark a pull request up with some label.`,
-	RunE: func(_ *cobra.Command, _ []string) error {
+	Run: func(_ *cobra.Command, _ []string) {
 
 		initMarkup := notify.InitMarkup(pullrequest, labels, *repoConf)
 
@@ -31,10 +30,9 @@ var markupCmd = &cobra.Command{
 		}
 		res, err := notify.SendMarkup(initMarkup, &initMarkup.Markup, post, get)
 		if err != nil {
-			return err
+			log.Fatal(err)
 		}
-		log.Println(res)
-		return nil
+		log.Info(res)
 	},
 }
 

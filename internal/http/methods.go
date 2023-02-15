@@ -4,10 +4,24 @@ import (
 	"bytes"
 	"encoding/json"
 	"io"
-	"log"
 	"net/http"
 	"net/http/cookiejar"
+	"os"
+
+	"github.com/sirupsen/logrus"
+	prefixed "github.com/x-cray/logrus-prefixed-formatter"
 )
+
+var log = &logrus.Logger{
+	Out:   os.Stderr,
+	Level: logrus.DebugLevel,
+	Formatter: &prefixed.TextFormatter{
+		DisableColors:   false,
+		TimestampFormat: "2006-01-02 15:04:05",
+		FullTimestamp:   true,
+		ForceFormatting: true,
+	},
+}
 
 func HttpHandler(method string, payload []byte, url string, contentType string, token string) []byte {
 	req, err := http.NewRequest(method, url, bytes.NewBuffer(payload))

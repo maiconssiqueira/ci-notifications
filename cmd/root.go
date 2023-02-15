@@ -1,16 +1,28 @@
 package cmd
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/maiconssiqueira/ci-notifications/config"
 	"github.com/maiconssiqueira/ci-notifications/github"
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
+	prefixed "github.com/x-cray/logrus-prefixed-formatter"
 
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
 )
+
+var log = &logrus.Logger{
+	Out:   os.Stderr,
+	Level: logrus.DebugLevel,
+	Formatter: &prefixed.TextFormatter{
+		DisableColors:   false,
+		TimestampFormat: "2006-01-02 15:04:05",
+		FullTimestamp:   true,
+		ForceFormatting: true,
+	},
+}
 
 var (
 	tagName              string
@@ -71,7 +83,7 @@ func initConfig() {
 		// Find home directory.
 		_, err := homedir.Dir()
 		if err != nil {
-			fmt.Println(err)
+			log.Fatal(err)
 			os.Exit(1)
 		}
 		viper.AddConfigPath("$PWD")
@@ -80,7 +92,7 @@ func initConfig() {
 	}
 	err := viper.ReadInConfig()
 	if err != nil {
-		panic(err)
+		log.Panic(err)
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match

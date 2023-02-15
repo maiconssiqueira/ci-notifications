@@ -2,9 +2,27 @@ package github
 
 import (
 	"encoding/json"
-	"log"
+	"fmt"
+	"os"
+
 	"time"
+
+	"github.com/sirupsen/logrus"
+	prefixed "github.com/x-cray/logrus-prefixed-formatter"
 )
+
+// var log = logrus.New()
+
+var log = &logrus.Logger{
+	Out:   os.Stderr,
+	Level: logrus.DebugLevel,
+	Formatter: &prefixed.TextFormatter{
+		DisableColors:   false,
+		TimestampFormat: "2006-01-02 15:04:05",
+		FullTimestamp:   true,
+		ForceFormatting: true,
+	},
+}
 
 type Callbacks interface {
 	Response(raw []byte, github *Github) (string, error)
@@ -33,16 +51,16 @@ func (g *status) Response(raw []byte, github *Github) (string, error) {
 		log.Fatal(err)
 	}
 	if g.Return.Message != "" {
-		return "Whoops, status of " + github.Url + " there was an error. " + g.Return.Message, nil
+		return "", fmt.Errorf(fmt.Sprintf("Whoops, status of %v there was an error. %v", github.Url, g.Return.Message))
 	}
-	return "Hooray, status of " + github.Url + " was updated at " + g.Return.CreatedAt.String(), nil
+	return fmt.Sprintf("hooray, status of %v was updated at %v", github.Url, g.Return.CreatedAt.String()), nil
 }
 
 func (g *markup) Response(raw []byte, github *Github) (string, error) {
 	if err := json.Unmarshal(raw, &g.Return); err != nil {
 		log.Fatal(err)
 	}
-	return "Hooray, the " + github.Url + " was marked up", nil
+	return fmt.Sprintf("hooray, the label %v for %v was marked up", g.Markups.Labels[0], github.Url), nil
 }
 
 func (g *comments) Response(raw []byte, github *Github) (string, error) {
@@ -50,9 +68,9 @@ func (g *comments) Response(raw []byte, github *Github) (string, error) {
 		log.Fatal(err)
 	}
 	if g.Return.Message != "" {
-		return "Whoops, your comment for " + github.Url + " was not sent. " + g.Return.Message, nil
+		return "", fmt.Errorf(fmt.Sprintf("Whoops, your comment for %v was not sent. %v", github.Url, g.Return.Message))
 	}
-	return "Hooray, the comment for " + github.Url + " was sent at " + g.Return.CreatedAt.String(), nil
+	return fmt.Sprintf("hooray, the comment for %v was sent at %v", github.Url, g.Return.CreatedAt.String()), nil
 }
 
 func (g *releases) Response(raw []byte, github *Github) (string, error) {
@@ -60,7 +78,7 @@ func (g *releases) Response(raw []byte, github *Github) (string, error) {
 		log.Fatal(err)
 	}
 	if g.Return.Message != "" {
-		return "Whoops, this release " + g.TagName + " for " + github.Url + " there was an error. " + g.Return.Message, nil
+		return "", fmt.Errorf(fmt.Sprintf("Whoops, this release %v for %v there was an error. %v ", g.TagName, github.Url, g.Return.Message))
 	}
-	return "Hooray, this release " + g.TagName + " for " + github.Url + " was defined at " + g.Return.CreatedAt.String(), nil
+	return fmt.Sprintf("hooray, this release %v for %v was defined at %v", g.TagName, github.Url, g.Return.CreatedAt.String()), nil
 }

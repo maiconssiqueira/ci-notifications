@@ -62,7 +62,7 @@ Using from the command line:
 ```bash
 notifications-cli github comments \
   --pullrequest 16 \
-  --message "Hooray"
+  --message "hooray"
 ```
 
 - ##### Markdown Text
@@ -147,5 +147,5 @@ docker run --env REPOSITORY=$REPOSITORY \
   --env ORGANIZATION=$ORGANIZATION \
   --env GHTOKEN=$GHTOKEN github comments \
   --pullrequest 16 \
-  --message "Hooray"
+  --message "hooray"
 ```

@@ -1,8 +1,6 @@
 package cmd
 
 import (
-	"log"
-
 	"github.com/maiconssiqueira/ci-notifications/internal/http"
 	"github.com/maiconssiqueira/ci-notifications/internal/output"
 	"github.com/spf13/cobra"
@@ -11,7 +9,7 @@ import (
 var releasesCmd = &cobra.Command{
 	Use:   "releases",
 	Short: "Set a new release to a Github repository",
-	RunE: func(_ *cobra.Command, _ []string) error {
+	Run: func(_ *cobra.Command, _ []string) {
 		InitRelease := notify.InitRelease(tagName, targetCommitish, name, body, draft, prerelease, generateReleaseNotes, *repoConf)
 
 		var post http.Handler = &http.Contains{
@@ -24,14 +22,13 @@ var releasesCmd = &cobra.Command{
 
 		err := output.CheckSemanticVersioning(tagName)
 		if err != nil {
-			return err
+			log.Fatal(err)
 		}
 		res, err := notify.SetRelease(InitRelease, &InitRelease.Releases, post)
 		if err != nil {
-			return err
+			log.Fatal(err)
 		}
-		log.Println(res)
-		return nil
+		log.Info(res)
 	},
 }
 

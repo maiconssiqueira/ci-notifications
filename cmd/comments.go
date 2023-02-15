@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"log"
 	"strconv"
 
 	"github.com/maiconssiqueira/ci-notifications/internal/http"
@@ -11,7 +10,7 @@ import (
 var commentsCmd = &cobra.Command{
 	Use:   "comments",
 	Short: "The  comments supports send comment on pull requests",
-	RunE: func(_ *cobra.Command, _ []string) error {
+	Run: func(_ *cobra.Command, _ []string) {
 		initComment := notify.InitComment(pullrequest, message, *repoConf)
 
 		var post http.Handler = &http.Contains{
@@ -24,10 +23,9 @@ var commentsCmd = &cobra.Command{
 
 		res, err := notify.SendComment(initComment, &initComment.Comments, post)
 		if err != nil {
-			return err
+			log.Fatal(err)
 		}
-		log.Println(res)
-		return nil
+		log.Info(res)
 	},
 }
 

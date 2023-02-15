@@ -1,11 +1,23 @@
 package config
 
 import (
-	"log"
 	"os"
 
 	"github.com/maiconssiqueira/ci-notifications/internal/output"
+	"github.com/sirupsen/logrus"
+	prefixed "github.com/x-cray/logrus-prefixed-formatter"
 )
+
+var log = &logrus.Logger{
+	Out:   os.Stderr,
+	Level: logrus.DebugLevel,
+	Formatter: &prefixed.TextFormatter{
+		DisableColors:   false,
+		TimestampFormat: "2006-01-02 15:04:05",
+		FullTimestamp:   true,
+		ForceFormatting: true,
+	},
+}
 
 type Repository struct {
 	Github Github
